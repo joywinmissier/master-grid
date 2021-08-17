@@ -1,0 +1,133 @@
+<div  class="filter-boxes">
+    <mat-checkbox *ngFor="let yearNames of rowHeader;let yearIndex = index;"
+    (change)="valueChange(yearNames,$event, yearIndex)" [ngStyle]="{'color': '#75003'}">
+         {{ yearNames }}
+    </mat-checkbox>                        
+  </div>
+
+<div class="table-container" [ngClass]="{'table-height': stickHeader}">
+    <table class="table-size" [ngClass]="{ 'sticky-first' : isFirstSticky , 'non-sticky' : !isFirstSticky ,  'sticky-last': isLastSticky}" cellspacing="0" cellpadding="5">
+        <thead class="header-align row-text-design" [ngClass]="{'header-stick': stickHeader}">
+            <th class="category-design"> Category
+                <span *ngIf="showFilter" [appSort]="tableItems" data-order="desc" data-name="name" class="sort-icon" (sortDetailsEvent)="getSortOrderDetails($event)">
+                    <!-- <i *ngIf="(orderType == '' || columnName !== 'name')" class="hide">&#9776;</i> -->
+                    <mat-icon *ngIf="(orderType == '' || columnName !== 'name')" class="hide icon-design">sort</mat-icon>
+                    <ng-container *ngIf="columnName == 'name'">
+                        <!-- <i *ngIf="(orderType == 'desc' && columnName == 'name')" class="arrow down" title="High to Low"></i>
+                        <i *ngIf="(orderType == 'asc' && columnName == 'name')" class="arrow up" title="Low to High"></i> -->
+                          <!-- <i *ngIf="((orderType == 'asc' && columnName == 'name') || (orderType == 'desc' && columnName == 'name'))" class="close" (click)="restFilter()" title="Reset Filter">&#10006;</i> -->
+                        <mat-icon *ngIf="(orderType == 'desc' && columnName == 'name')" class="icon-design" title="High to Low">south</mat-icon>
+                        <mat-icon *ngIf="(orderType == 'asc' && columnName == 'name')" class="icon-design" title="Low to High">north</mat-icon>
+                        <mat-icon *ngIf="((orderType == 'asc' && columnName == 'name') || (orderType == 'desc' && columnName == 'name'))" class="close icon-design" (click)="restFilter()" title="Reset Filter">close</mat-icon>
+                    </ng-container>
+                </span>
+            </th>
+            <ng-container *ngFor="let yearHeader of rowHeader;let i = index;">
+                <th *ngIf="!selectedYear.includes(sampleRow[i])"> {{yearHeader}}
+                    <span *ngIf="showFilter" [appSort]="tableItems" data-order="desc" [attr.data-name]="sampleRow[i]" class="sort-icon" (sortDetailsEvent)="getSortOrderDetails($event)">
+                        <!-- <i *ngIf="(orderType == '' || columnName !== sampleRow[i])" class="hide">&#9776;</i> -->
+                        <mat-icon *ngIf="(orderType == '' || columnName !== sampleRow[i])" class="hide icon-design">sort</mat-icon>
+                        <ng-container *ngIf="columnName == sampleRow[i]">
+                            <!-- <i *ngIf="(orderType == 'desc' && columnName == sampleRow[i])" class="arrow down" title="High to Low"></i>
+                            <i *ngIf="(orderType == 'asc' && columnName == sampleRow[i])" class="arrow up" title="Low to High"></i> -->
+                            <!-- <i *ngIf="((orderType == 'asc' && columnName == sampleRow[i]) || (orderType == 'desc' && columnName == sampleRow[i]))" class="close" (click)="restFilter()" title="Reset Filter">&#10006;</i> -->
+                            <mat-icon *ngIf="(orderType == 'desc' && columnName == sampleRow[i])" class="icon-design" title="High to Low">south</mat-icon>
+                            <mat-icon *ngIf="(orderType == 'asc' && columnName == sampleRow[i])" class="icon-design" title="Low to High">north</mat-icon>  
+                            <mat-icon *ngIf="((orderType == 'asc' && columnName == sampleRow[i]) || (orderType == 'desc' && columnName == sampleRow[i]))" class="close icon-design" (click)="restFilter()" title="Reset Filter">close</mat-icon>
+                        </ng-container>
+                    </span>
+                </th>
+            </ng-container>
+            <th>Total</th>
+        </thead>
+        <tbody>
+
+            <ng-container *ngFor="let data of tableItems;let i = index;">
+                <tr (click)="data.expansion = !data.expansion;" class="row-text-design">
+                    <td>
+                        <span  class="more-less-icon" *ngIf="data.subitems.length > 0 ">{{ data.expansion ? '⚊' : '✚'}}</span>
+                        {{data.name}} 
+                    </td>
+
+                    <ng-container *ngFor="let parentYears of duration">
+                        <!-- <td class="data-edit"> {{data['y'+parentYears]}} <span class="edit-icon" (click)="editData(data['y'+parentYears],data,parentYears)">&#x270E;</span></td> -->
+                        <td class="data-edit" [ngClass]="{'edit-hover' : editFields}"  *ngIf="!selectedYear.includes('y'+parentYears) ">  
+                          <mat-form-field> 
+                            <input matInput (click)="resetClick()" [(ngModel)]="tableItems[i]['y'+parentYears]" (focus)="stopFocus()" (input)="onSearchChange($event.target.value)" [disabled]="((clickedYear !== 'y'+parentYears) || (data.name !== clickedName))" [value]="data['y'+parentYears]">
+                          </mat-form-field>
+                          <!-- <span class="edit-icon" *ngIf="((clickedYear !== 'y'+parentYears) || (data.name !== clickedName))" (click)="editData(data['y'+parentYears],data,parentYears,data.name)">&#x270E;</span> -->
+                          
+                         <ng-container *ngIf="editFields"> <mat-icon *ngIf="((clickedYear !== 'y'+parentYears) || (data.name !== clickedName))"  class="icon-design edit-icon" (click)="editData(data['y'+parentYears],data,parentYears,data.name)">edit</mat-icon></ng-container>
+                          <mat-icon *ngIf="!((clickedYear !== 'y'+parentYears) || (data.name !== clickedName))" class="icon-design save-icon" title="Save" (click)="modifyData(data,parentYears)">check</mat-icon>
+                          <mat-icon *ngIf="!((clickedYear !== 'y'+parentYears) || (data.name !== clickedName))" class="icon-design close-icon" title="close" (click)="closeEdit(data,parentYears)">close</mat-icon>
+                        </td>
+                      
+                    </ng-container>
+                    <td *ngIf="selectedYear.length == 0"> {{data.total}} </td>
+                    <td *ngIf="selectedYear.length > 0">{{ getUpdatedTotal(data.total,data) }}</td>
+                </tr>
+
+                <ng-container *ngIf="data.expansion">
+                    <ng-container *ngFor="let details of data.subitems;let j = index;">
+                        <tr (click)="details.expansion = !details.expansion" class="row-text-design">
+                            <td class="gap-text">
+                                <span class="more-less-icon" *ngIf="details.subitems.length > 0 ">{{ details.expansion ? '⚊' : '✚'}}</span>
+                                {{details.name}}
+                            </td>
+                            <ng-container *ngFor="let childYears of duration">
+                                <!-- <td> {{details['y'+childYears]}} </td> -->
+
+                                <td class="data-edit" *ngIf="!selectedYear.includes('y'+childYears) ">  
+                                    <mat-form-field> 
+                                      <input matInput (click)="resetClick()" [(ngModel)]="data.subitems[j]['y'+childYears]" (focus)="stopFocus()" (input)="onSearchChange($event.target.value)" [disabled]="((clickedYear !== 'y'+childYears) || (details.name !== clickedName))" [value]="details['y'+childYears]">
+                                    </mat-form-field>
+                                    <!-- <span class="edit-icon" *ngIf="((clickedYear !== 'y'+parentYears) || (data.name !== clickedName))" (click)="editData(data['y'+parentYears],data,parentYears,data.name)">&#x270E;</span> -->
+                                    
+                                   <ng-container *ngIf="editFields"> <mat-icon *ngIf="((clickedYear !== 'y'+childYears) || (details.name !== clickedName))"  class="icon-design edit-icon" (click)="editData(details['y'+childYears],details,childYears,details.name)">edit</mat-icon></ng-container>
+                                    <mat-icon *ngIf="!((clickedYear !== 'y'+childYears) || (details.name !== clickedName))" class="icon-design save-icon" title="Save" (click)="modifyData(details,childYears)">check</mat-icon>
+                                    <mat-icon *ngIf="!((clickedYear !== 'y'+childYears) || (details.name !== clickedName))" class="icon-design close-icon" title="close" (click)="closeEdit(details,childYears)">close</mat-icon>
+                                  </td>
+                            </ng-container>
+                            <td> {{details.total}} </td>
+                        </tr>
+
+                        <ng-container *ngIf="details.expansion">
+                            <ng-container *ngFor="let detailList of details.subitems;let k = index;" class="sub-items-holder">
+                                <tr (click)="detailList.expansion = !detailList.expansion">
+                                    <td class="sub-gap-text"> {{detailList.name}} </td>
+                                    <ng-container *ngFor="let subChildYears of duration">
+                                        <!-- <td class="subchild-text"> {{detailList['y'+subChildYears]}} </td> -->
+                                        <td class=" subchild-text data-edit" *ngIf="!selectedYear.includes('y'+subChildYears) ">  
+                                            <mat-form-field> 
+                                              <input matInput (click)="resetClick()" [(ngModel)]="details.subitems[k]['y'+subChildYears]" (focus)="stopFocus()" (input)="onSearchChange($event.target.value)" [disabled]="((clickedYear !== 'y'+subChildYears) || (detailList.name !== clickedName))" [value]="detailList['y'+subChildYears]">
+                                            </mat-form-field>
+                                            <!-- <span class="edit-icon" *ngIf="((clickedYear !== 'y'+parentYears) || (data.name !== clickedName))" (click)="editData(data['y'+parentYears],data,parentYears,data.name)">&#x270E;</span> -->
+                                            
+                                           <ng-container *ngIf="editFields"> <mat-icon *ngIf="((clickedYear !== 'y'+subChildYears) || (detailList.name !== clickedName))"  class="icon-design edit-icon" (click)="editData(detailList['y'+subChildYears],detailList,subChildYears,detailList.name)">edit</mat-icon></ng-container>
+                                            <mat-icon *ngIf="!((clickedYear !== 'y'+subChildYears) || (detailList.name !== clickedName))" class="icon-design save-icon" title="Save" (click)="modifyData(detailList,subChildYears)">check</mat-icon>
+                                            <mat-icon *ngIf="!((clickedYear !== 'y'+subChildYears) || (detailList.name !== clickedName))" class="icon-design close-icon" title="close" (click)="closeEdit(detailList,subChildYears)">close</mat-icon>
+                                          </td>
+                                    </ng-container>
+                                    <td class="sub-items-holder"> {{detailList.total}} </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngFor="let lastData of lastRowData;let i = index;">
+                <tr  class="row-text-design">
+                    <td>
+                        {{lastData.name}}
+                    </td>
+
+                    <ng-container *ngFor="let parentYears of duration">
+                        <td *ngIf="!selectedYear.includes('y'+parentYears) "> {{lastData['y'+parentYears]}} </td>
+                    </ng-container>
+                    <td> {{lastData.total}} </td>
+                </tr>
+            </ng-container>
+
+        </tbody>
+    </table>
+</div>

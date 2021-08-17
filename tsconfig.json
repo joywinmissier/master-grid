@@ -10,6 +10,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "new-lib-demo": [
+        "dist/new-lib-demo/new-lib-demo",
+        "dist/new-lib-demo"
+      ]
+    },
     "target": "es2015",
     "module": "es2020",
     "lib": [
