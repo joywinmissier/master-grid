@@ -43,7 +43,7 @@ export class AppComponent {
   data1 = [
     {
       name: 'Current State',
-      y1: '210.00',
+      y1: '1210.00',
       y2: '30.00',
       y3: '120.00',
       y4: '3110.00',
@@ -138,7 +138,7 @@ export class AppComponent {
     },
     {
       name: 'Target State',
-      y1: '20.00',
+      y1: '2220.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',

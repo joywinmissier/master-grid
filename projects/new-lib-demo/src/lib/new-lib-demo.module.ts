@@ -6,6 +6,7 @@ import { SortDirective } from './directives/sort.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
+import { PricerangePipe } from './pipes/pricerange.pipe';
 
 
 
@@ -13,7 +14,8 @@ import { MaterialModule } from './material.module';
   declarations: [
     NewLibDemoComponent,
     LibProfitlossComponent,
-    SortDirective
+    SortDirective,
+    PricerangePipe
   ],
   imports: [
     BrowserModule,
