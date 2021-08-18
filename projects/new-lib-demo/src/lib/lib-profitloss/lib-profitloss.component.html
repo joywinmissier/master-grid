@@ -1,8 +1,33 @@
-<div  class="filter-boxes">
-    <mat-checkbox *ngFor="let yearNames of rowHeader;let yearIndex = index;"
-    (change)="valueChange(yearNames,$event, yearIndex)" [ngStyle]="{'color': '#75003'}">
-         {{ yearNames }}
-    </mat-checkbox>                        
+  <div class="filter-holder">
+    <button class="filter-button" mat-stroked-button [matMenuTriggerFor]="menu">Filter
+        <mat-icon class="filter-icon">filter_list</mat-icon></button>
+    <mat-menu #menu="matMenu">
+        <div class="hide-holder horizontal-gap">
+            <div class="hide-filter-text-holder">
+                <p class="hide-show-text">Hide/Show</p>
+            </div>
+            <mat-divider [vertical]="true"></mat-divider>
+            <div class="filter-boxes" (click)="$event.stopPropagation()">
+                <mat-checkbox *ngFor="let yearNames of rowHeader;let yearIndex = index;" class="move-checkbox"
+                (change)="valueChange(yearNames,$event, yearIndex)" [ngStyle]="{'color': '#75003'}">
+                     {{ yearNames }}
+                </mat-checkbox>                        
+              </div>
+        </div>
+        <mat-divider class="horizontal-gap"></mat-divider>
+        <div class="hide-holder  horizontal-gap">
+            <div class="hide-filter-text-holder">
+                <p class="hide-show-text">Range</p>
+            </div>
+            <mat-divider [vertical]="true"></mat-divider>
+       
+            <div class="slider-padding" (click)="$event.stopPropagation()">
+                <mat-slider class="slider-gap"></mat-slider>
+            </div>
+        </div>
+
+
+    </mat-menu>
   </div>
 
 <div class="table-container" [ngClass]="{'table-height': stickHeader}">

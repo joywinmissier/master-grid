@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { LibProfitlossComponent } from 'new-lib-demo';
+import { FilterConfiguration } from 'projects/new-lib-demo/src/lib/interface/plview.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  title = "Master-Grid";
   
   //stick first column
   stickColumn = true;
@@ -30,6 +33,11 @@ export class AppComponent {
 
   //text to show on table th for each column
   headerText = 'Year';
+
+  filterJSON : FilterConfiguration = {
+    showSorting : false,
+    showFiltering : false
+  }
 
   //pl view data
   data1 = [
