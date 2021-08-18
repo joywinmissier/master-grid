@@ -1,6 +1,6 @@
 <div>
     <header>
-        <h1>Master-Grid</h1>
+        <h1>{{ title | uppercase }}</h1>
     </header>
    
 
@@ -13,6 +13,8 @@
     [numberOfDuration]="noOfDuration"
     [headerName]="headerText" 
     [editFields]="canEdit" 
-    [stickHeader]="headerFix">
+    [stickHeader]="headerFix"
+    [filterJson] ="filterJSON"
+    >
 </lib-lib-profitloss>
 </div>

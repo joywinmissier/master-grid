@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FilterConfiguration } from '../interface/plview.model';
 
 @Component({
   selector: 'lib-lib-profitloss',
@@ -35,6 +36,9 @@ export class LibProfitlossComponent implements OnInit {
 
   //stick header on scrolling
   @Input() stickHeader : boolean;
+
+  //filter sort configuration
+  @Input() filterJson : FilterConfiguration;
 
   //variable to dynamically bind years in template eg) y1,y2 etc..
   duration = [];
