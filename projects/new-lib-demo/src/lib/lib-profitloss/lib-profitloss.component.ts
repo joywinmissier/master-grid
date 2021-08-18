@@ -79,12 +79,40 @@ export class LibProfitlossComponent implements OnInit {
 selectedYear = [];
 
 updatedTotal;
+
+minAmountRange;
+maxAmountRange;
+rangeSelection;
+
+priceRange = [
+  {
+    'min' : 0,
+    'max' : 1000,
+    'range' : '0 - 1000'
+  },
+  {
+    'min' : 1001,
+    'max' : 5000,
+    'range' : '1001 - 5000'
+  },
+  {
+    'min' : 5001,
+    'max' : 10000,
+    'range' : '5001 - 10000'
+  },
+  {
+    'min' : 10001,
+    'max' : 'unlimited',
+    'range' : 'Above 10000'
+  }
+];
   //Angular Lifecycle
   ngOnInit(): void {
     this.manipulateData(this.tableItems);
     this.dynamicYears(this.numberOfDuration);
     this.tempData = [...this.tableItems];
   }
+
 
   //method to dynamically render years instead of using data.y1, data.y2
   dynamicYears(durationYears) {
@@ -210,6 +238,36 @@ updatedTotal;
       console.log('Else',this.selectedYear);
       this.selectedYear.push(this.sampleRow[yearIndex]);
     }
+  }
+
+  priceFilter(min, max, range){
+    this.tableItems = [...this.tempData];
+    this.minAmountRange = min;
+    this.maxAmountRange = max;
+    this.rangeSelection = range;
+    let filteredArray;
+    if(typeof(max) !== "string"){
+     filteredArray = this.tableItems.filter(itemList =>{
+        console.log(itemList.y1>=min,itemList.y1<max);
+       return Number(itemList.y1) >= Number(min) && Number(itemList.y1) < Number(max)
+      });
+      console.log('filtered',filteredArray);
+    }
+    else{
+       filteredArray = this.tableItems.filter(itemList => Number(itemList.y1) >= Number(min));
+       console.log('filtered',filteredArray);
+    }
+
+    this.tableItems = [...filteredArray];
+ 
+  }
+
+  clearFilter(){
+    this.rangeSelection = '';
+    this.selectedYear = [];
+    this.minAmountRange = undefined;
+    this.maxAmountRange = undefined;
+    this.tableItems = [...this.tempData]
   }
 
 }
