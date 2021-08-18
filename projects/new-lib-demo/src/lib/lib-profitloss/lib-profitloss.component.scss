@@ -310,7 +310,7 @@ tr > td:last-of-type {
 ::ng-deep .mat-menu-panel {
   // max-width: 300px !important;
   max-width: 33rem !important;
-  border-radius: 0;
+  border-radius: 0 !important;
 
 }
 
@@ -342,9 +342,34 @@ tr > td:last-of-type {
 
 .slider-padding{
   margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
   .slider-gap{
     margin-left: 1rem;
   }
+}
+
+.range-button{
+  border-radius: 0;
+  min-width: 5rem;
+  width: 8rem;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.filtered-button{
+  background-color: #7500c0;
+  color: white;
+}
+
+.panel-title{
+  font-size: 1rem;
+  color: #000;
+  font-weight: 500;
+}
+
+.title-container{
+  padding: 1rem 1rem 0 1rem;
 }
 
 

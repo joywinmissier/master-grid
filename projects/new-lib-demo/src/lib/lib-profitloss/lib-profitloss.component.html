@@ -2,6 +2,10 @@
     <button class="filter-button" mat-stroked-button [matMenuTriggerFor]="menu">Filter
         <mat-icon class="filter-icon">filter_list</mat-icon></button>
     <mat-menu #menu="matMenu">
+        <div class="title-container">
+            <p class="panel-title">Filter By</p>
+        </div>
+        <mat-divider class="horizontal-gap"></mat-divider>
         <div class="hide-holder horizontal-gap">
             <div class="hide-filter-text-holder">
                 <p class="hide-show-text">Hide/Show</p>
@@ -22,10 +26,14 @@
             <mat-divider [vertical]="true"></mat-divider>
        
             <div class="slider-padding" (click)="$event.stopPropagation()">
-                <mat-slider class="slider-gap"></mat-slider>
+                <!-- <mat-slider class="slider-gap"></mat-slider> -->
+                <button class="range-button" [ngClass]="{'filtered-button' : buttonLoop.range == rangeSelection}" mat-stroked-button *ngFor="let buttonLoop of priceRange" (click)="priceFilter(buttonLoop.min,buttonLoop.max, buttonLoop.range)">{{buttonLoop.range}}</button>
             </div>
         </div>
-
+        <mat-divider class="horizontal-gap"></mat-divider>
+        <div>
+            <button mat-button color="warn" (click)="clearFilter()">Clear all filters</button>
+        </div>
 
     </mat-menu>
   </div>
