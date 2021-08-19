@@ -1,4 +1,6 @@
+import { NonNullAssert } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSelect } from '@angular/material/select';
 import { FilterConfiguration } from '../interface/plview.model';
 
 @Component({
@@ -84,6 +86,8 @@ minAmountRange;
 maxAmountRange;
 rangeSelection;
 
+selectedValue: string;
+
 priceRange = [
   {
     'min' : 0,
@@ -109,8 +113,10 @@ priceRange = [
   //Angular Lifecycle
   ngOnInit(): void {
     this.manipulateData(this.tableItems);
+    console.log(this.tableItems);
     this.dynamicYears(this.numberOfDuration);
     this.tempData = [...this.tableItems];
+    // this.tableItems = this.getItems(this.tempData,null,0);
   }
 
 
@@ -128,20 +134,35 @@ priceRange = [
   }
 
   //method to add "expansion" boolean to determine open/close of expansion panel
-  manipulateData(listOfItems) {
+  manipulateData(listOfItems, start = 1) {
+    console.log('Items',listOfItems);
     listOfItems.map(items => {
       items['expansion'] = false;
+      items['index'] = start;
       if (items.hasOwnProperty('subitems')) {
-        items['subitems'].forEach(childItems => {
-          childItems['expansion'] = false;
-          if (childItems.hasOwnProperty('subitems')) {
-            childItems.subitems.map(subChildItems => {
-              subChildItems['expansion'] = false;
-            });
-          }
-        });
+        // items['subitems'].forEach(childItems => {
+        //   childItems['expansion'] = false;
+        //   if (childItems.hasOwnProperty('subitems')) {
+        //     childItems.subitems.map(subChildItems => {
+        //       subChildItems['expansion'] = false;
+        //     });
+        //   }
+        // });
+        console.log('Loop Items',items);
+        let countIndex;
+        countIndex = start + 1;
+        items['subitems'].length > 0 ?  this.manipulateData(items['subitems'], countIndex ) : '';
       }
     });
+  }
+
+  test1(item){
+    if(item?.subitems?.length>0){
+      item.expansion = !item.expansion;
+      // this.tableItems = this.getItems(this.tempData,null,0);
+    }
+ 
+    event.stopPropagation();
   }
 
   //get sort order from directive
@@ -241,24 +262,24 @@ priceRange = [
   }
 
   priceFilter(min, max, range){
-    this.tableItems = [...this.tempData];
+    // this.tableItems = [...this.tempData];
     this.minAmountRange = min;
     this.maxAmountRange = max;
     this.rangeSelection = range;
-    let filteredArray;
-    if(typeof(max) !== "string"){
-     filteredArray = this.tableItems.filter(itemList =>{
-        console.log(itemList.y1>=min,itemList.y1<max);
-       return Number(itemList.y1) >= Number(min) && Number(itemList.y1) < Number(max)
-      });
-      console.log('filtered',filteredArray);
-    }
-    else{
-       filteredArray = this.tableItems.filter(itemList => Number(itemList.y1) >= Number(min));
-       console.log('filtered',filteredArray);
-    }
+    // let filteredArray;
+    // if(typeof(max) !== "string"){
+    //  filteredArray = this.tableItems.filter(itemList =>{
+    //     console.log(itemList.y1>=min,itemList.y1<max);
+    //    return Number(itemList.y1) >= Number(min) && Number(itemList.y1) < Number(max)
+    //   });
+    //   console.log('filtered',filteredArray);
+    // }
+    // else{
+    //    filteredArray = this.tableItems.filter(itemList => Number(itemList.y1) >= Number(min));
+    //    console.log('filtered',filteredArray);
+    // }
 
-    this.tableItems = [...filteredArray];
+    // this.tableItems = [...filteredArray];
  
   }
 
@@ -267,7 +288,25 @@ priceRange = [
     this.selectedYear = [];
     this.minAmountRange = undefined;
     this.maxAmountRange = undefined;
+    this.selectedValue = undefined;
     this.tableItems = [...this.tempData]
+  }
+
+  // getItems(data, items,index) {
+  //   data.forEach(x => {
+  //     if (!items)
+  //       items=[];
+  //     items.push(x);
+  //     items[items.length-1].index=index
+  //     if (x.subitems && x.expanded)
+  //       this.getItems(x.subitems,items,index+1);
+  //   }
+  //   )
+  //   return items;
+  // }
+
+  resetPlaceholder(selectedData : MatSelect) {
+    selectedData.placeholder = '';
   }
 
 }

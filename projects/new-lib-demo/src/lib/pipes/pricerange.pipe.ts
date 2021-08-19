@@ -1,23 +1,25 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'pricerange'
+  name: 'priceRange'
 })
 export class PricerangePipe implements PipeTransform {
 
-  transform(value: any, minValue, maxValue): any {
+  transform(value: any, columnName, minValue, maxValue): any {
    
 
-    if(minValue !==undefined && maxValue !==undefined){
+    if(minValue !==undefined && maxValue !==undefined && columnName !==undefined){
       if(typeof(maxValue) !== "string"){
-        console.log(minValue,maxValue);
-        return value.filter(itemList =>{
-          console.log(itemList.y1>=minValue,itemList.y1<maxValue);
-          Number(itemList.y1) >= minValue || Number(itemList.y1) < maxValue
-        });
+        console.log(columnName,minValue,maxValue);
+        let validatedData;
+        validatedData = value.filter(itemList => {
+          
+           return Number(itemList[columnName]) >= minValue && Number(itemList[columnName]) < maxValue
+          });
+          return validatedData;
       }
       else{
-        return value.filter(itemList => Number(itemList.y1) >= minValue)
+        return value.filter(itemList => Number(itemList[columnName]) >= minValue)
       }
     }
     else {

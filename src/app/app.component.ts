@@ -17,7 +17,7 @@ export class AppComponent {
   stickLastColumn = false;
 
   //show edit on table for column
-  canEdit = false;
+  canEdit = true;
 
   //fix table header on scroll
   headerFix = false;
@@ -138,7 +138,7 @@ export class AppComponent {
     },
     {
       name: 'Target State',
-      y1: '2220.00',
+      y1: '5020.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',
@@ -178,8 +178,25 @@ export class AppComponent {
               y8: '30.00',
               y9: '440.00',
               y10: '30.00',
-              total: 22572.2
+              total: 22572.2,
               // 'expanded': false,
+              subitems:[
+                {
+                  name: 'Third Party',
+                  y1: '10.00',
+                  y2: '20.00',
+                  y3: '30.00',
+                  y4: '4440.00',
+                  y5: '30.00',
+                  y6: '220.00',
+                  y7: '30.00',
+                  y8: '20.00',
+                  y9: '0.00',
+                  y10: '10.00',
+                  total: 22572.2
+                  // 'expanded': false,
+                }
+              ]
             },
             {
               name: 'Labour and Operations',
@@ -233,7 +250,7 @@ export class AppComponent {
     },
     {
       name: 'Migration',
-      y1: '120.00',
+      y1: '12000.00',
       y2: '230.00',
       y3: '10.00',
       y4: '10.00',
@@ -249,7 +266,7 @@ export class AppComponent {
       subitems: [
         {
           name: 'Migration Spend',
-          y1: '0.00',
+          y1: '1200.00',
           y2: '0.00',
           y3: '0.00',
           y4: '0.00',
@@ -265,7 +282,7 @@ export class AppComponent {
         },
         {
           name: 'One Time Spend',
-          y1: '6.00',
+          y1: '16.00',
           y2: '50.00',
           y3: '10.00',
           y4: '1.00',
@@ -281,7 +298,7 @@ export class AppComponent {
         },
         {
           name: 'Investment',
-          y1: '90.00',
+          y1: '4590.00',
           y2: '0.00',
           y3: '220.00',
           y4: '10.00',
@@ -297,7 +314,7 @@ export class AppComponent {
         },
         {
           name: 'Penalty',
-          y1: '10.00',
+          y1: '10000.00',
           y2: '0.00',
           y3: '30.00',
           y4: '0.00',
