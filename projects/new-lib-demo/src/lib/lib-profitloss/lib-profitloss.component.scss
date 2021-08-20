@@ -7,7 +7,7 @@ tr > td:last-of-type {
     cursor: pointer;
     box-shadow: 0 1px 1px -2px rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 14%),
       0 1px 5px 0 rgb(0 0 0 / 12%);
-    height: 3.75rem;
+    height: 4.75rem;
     background-color: #ffffff;
   }
   .table-container {
@@ -386,6 +386,11 @@ tr > td:last-of-type {
   border-radius: 0!important;
   box-shadow: 0 1px 5px rgb(158 164 186 / 20%);
   padding: 0!important;
+}
+
+.mat-form-field-infix{
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .mat-form-field-underline {

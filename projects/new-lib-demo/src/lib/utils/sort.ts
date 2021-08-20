@@ -16,76 +16,27 @@ export class Sort {
         }
         return (a, b) => {
           
-            if (type === "date") {
-                return this.sortData(new Date(a[property]), new Date(b[property]));
-            }
-  
-            else {
-                if(a.hasOwnProperty('subitems') ){
-                  
-                    if (order === "asc") {
-                       
-                        a['subitems'].sort((firstItem, secondItem) => firstItem[property] - secondItem[property]);
-                        if(a['subitems'].length > 0){
-                            a['subitems'].map((list)=>{
-                                if(list.hasOwnProperty('subitems') && list['subitems'].length>0){
-                                    list['subitems'].sort((firstItem, secondItem) => firstItem[property] - secondItem[property]);
-                                }
-                            });
-                        }
+                 if(a.hasOwnProperty('subitems') ){
+                      this.recursiveSort(a['subitems'],property,order)
                     }
-                    else {
-
-                        a['subitems'].sort((descFirstItem, descsecondItem) => descsecondItem[property] - descFirstItem[property]);
-                        if(a['subitems'].length > 0){
-                            a['subitems'].map((list)=>{
-                                if(list.hasOwnProperty('subitems') && list['subitems'].length>0){
-                                    list['subitems'].sort((descFirstItem, descsecondItem) => descsecondItem[property] - descFirstItem[property]);
-                                }
-                            });
-                        }
+                 if(b.hasOwnProperty('subitems')) {
+                      this.recursiveSort(a['subitems'],property,order)
                     }
-                }
-                if(b.hasOwnProperty('subitems') ){
-         
-                    if (order === "asc") {
-                        
-                        b['subitems'].sort((firstBSubitem, secondfBSubitem) => firstBSubitem[property] - secondfBSubitem[property]);
-
-                        if(b['subitems'].length > 0){
-                            b['subitems'].map((list)=>{
-                                if(list.hasOwnProperty('subitems') && list['subitems'].length>0){
-                                    list['subitems'].sort((firstBSubitem, secondfBSubitem) => firstBSubitem[property] - secondfBSubitem[property]);
-                                }
-                            });
-                        }
-                    }
-                    else {
-                        b['subitems'].sort((descfirstBSubitem, descsecondfBSubitem) => descsecondfBSubitem[property] - descfirstBSubitem[property]);
-                        if(b['subitems'].length > 0){
-                            b['subitems'].map((list)=>{
-                                if(list.hasOwnProperty('subitems') && list['subitems'].length>0){
-                                    list['subitems'].sort((descfirstBSubitem, descsecondfBSubitem) => descsecondfBSubitem[property] - descfirstBSubitem[property]);
-                                }
-                            });
-                        }
-                    }
-                }
                 return this.collator.compare(a[property], b[property]) * this.sortOrder;
-                
-                
+    
+        }
+    }
+
+    recursiveSort(listToSort, sortingProperty,sortOrder){
+            sortOrder == 'asc' ?   listToSort.sort((firstBSubitem, secondfBSubitem) => firstBSubitem[sortingProperty] - secondfBSubitem[sortingProperty])
+                               :   listToSort.sort((descFirstItem, descsecondItem) => descsecondItem[sortingProperty] - descFirstItem[sortingProperty]);
+     
+                if(listToSort.length > 0){
+                    listToSort.map((listSort)=>{
+                        if(listSort.hasOwnProperty('subitems')){
+                         this.recursiveSort(listSort['subitems'],sortingProperty,sortOrder);
+                        }
+                    });
+                }
             }
-        }
-    }
-  
-    private sortData(a, b) {
-      console.log(a,b);
-        if (a < b) {
-            return -1 * this.sortOrder;
-        } else if (a > b) {
-            return 1 * this.sortOrder;
-        } else {
-            return 0 * this.sortOrder;
-        }
-    }
   }
