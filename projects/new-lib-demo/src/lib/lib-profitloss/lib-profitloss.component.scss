@@ -7,7 +7,7 @@ tr > td:last-of-type {
     cursor: pointer;
     box-shadow: 0 1px 1px -2px rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 14%),
       0 1px 5px 0 rgb(0 0 0 / 12%);
-    height: 3.75rem;
+    height: 4.75rem;
     background-color: #ffffff;
   }
   .table-container {
@@ -269,7 +269,7 @@ tr > td:last-of-type {
 }
 
 .table-height{
-  height: 250px;
+  height: 350px;
 }
 
 .edit-hover:hover{
@@ -388,6 +388,11 @@ tr > td:last-of-type {
   padding: 0!important;
 }
 
+.mat-form-field-infix{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .mat-form-field-underline {
   display: none;
 }
@@ -419,6 +424,12 @@ mat-form-field{
   color: #000;
   font-weight: 500;
   margin-bottom: 0.25rem;
+}
+
+.reset-drop{
+  mat-icon {
+    margin-bottom: 3px;
+  }
 }
 
 
