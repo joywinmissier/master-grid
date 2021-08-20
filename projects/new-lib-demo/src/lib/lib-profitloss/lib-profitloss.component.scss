@@ -269,7 +269,7 @@ tr > td:last-of-type {
 }
 
 .table-height{
-  height: 250px;
+  height: 350px;
 }
 
 .edit-hover:hover{
@@ -424,6 +424,12 @@ mat-form-field{
   color: #000;
   font-weight: 500;
   margin-bottom: 0.25rem;
+}
+
+.reset-drop{
+  mat-icon {
+    margin-bottom: 3px;
+  }
 }
 
 

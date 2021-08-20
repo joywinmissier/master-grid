@@ -1,4 +1,4 @@
-  <div class="filter-holder">
+  <div class="filter-holder" *ngIf="filterJson?.showFiltering">
     <button class="filter-button" mat-stroked-button [matMenuTriggerFor]="menu">Filter
         <mat-icon class="filter-icon">filter_list</mat-icon></button>
     <mat-menu #menu="matMenu">
@@ -29,13 +29,17 @@
                     <label class="label-text">Choose Year to Filter by Range</label>
                     <mat-form-field class="input_type_wrap">
                       <mat-select #select [(ngModel)]="selectedValue" (opened)="resetPlaceholder(select)" floatLabel="never">
-                        <mat-option   [disabled]="selectedYear.includes(sampleRow[dropIndex])"  *ngFor="let yearNames of rowHeader;let dropIndex = index;" [value]="sampleRow[dropIndex]">
+                        <mat-option [disabled]="selectedYear.includes(sampleRow[dropIndex])"  *ngFor="let yearNames of rowHeader;let dropIndex = index;" [value]="sampleRow[dropIndex]">
                           {{yearNames}}
                         </mat-option>
                       </mat-select>
+                      <button class="reset-drop" mat-button matSuffix *ngIf="selectedValue" mat-icon-button aria-label="Clear"
+                         (click)="resetDropdown($event)">
+                        <mat-icon matTooltip="Reset">close</mat-icon>
+                      </button>
                     </mat-form-field>
                   </div>
-                  <div class="slider-padding">
+                  <div class="slider-padding" [matTooltip]="selectedValue == undefined ? 'Choose one year to filter by range' : ''" matTooltipPosition="above" >
                     <button class="range-button" [disabled]="selectedValue == undefined" [ngClass]="{'filtered-button' : buttonLoop.range == rangeSelection}" mat-stroked-button *ngFor="let buttonLoop of priceRange" 
                     (click)="priceFilter(buttonLoop.min,buttonLoop.max, buttonLoop.range)">{{buttonLoop.range}}</button>
                   </div>
@@ -54,7 +58,7 @@
     <table class="table-size" [ngClass]="{ 'sticky-first' : isFirstSticky , 'non-sticky' : !isFirstSticky ,  'sticky-last': isLastSticky}" cellspacing="0" cellpadding="5">
         <thead class="header-align row-text-design" [ngClass]="{'header-stick': stickHeader}">
             <th class="category-design"> Category
-                <span *ngIf="showFilter" [appSort]="tableItems" data-order="desc" data-name="name" class="sort-icon" (sortDetailsEvent)="getSortOrderDetails($event)">
+                <span *ngIf="filterJson?.showSorting" [appSort]="tableItems" data-order="desc" data-name="name" class="sort-icon" (sortDetailsEvent)="getSortOrderDetails($event)">
                     <mat-icon *ngIf="(orderType == '' || columnName !== 'name')" class="hide icon-design">sort</mat-icon>
                     <ng-container *ngIf="columnName == 'name'">
                         <mat-icon *ngIf="(orderType == 'desc' && columnName == 'name')" class="icon-design" title="High to Low">south</mat-icon>
@@ -65,7 +69,7 @@
             </th>
             <ng-container *ngFor="let yearHeader of rowHeader;let i = index;">
                 <th *ngIf="!selectedYear.includes(sampleRow[i])"> {{yearHeader}}
-                    <span *ngIf="showFilter" [appSort]="tableItems" data-order="desc" [attr.data-name]="sampleRow[i]" class="sort-icon" (sortDetailsEvent)="getSortOrderDetails($event)">
+                    <span *ngIf="filterJson?.showSorting" [appSort]="tableItems" data-order="desc" [attr.data-name]="sampleRow[i]" class="sort-icon" (sortDetailsEvent)="getSortOrderDetails($event)">
                         <mat-icon *ngIf="(orderType == '' || columnName !== sampleRow[i])" class="hide icon-design">sort</mat-icon>
                         <ng-container *ngIf="columnName == sampleRow[i]">
                             <mat-icon *ngIf="(orderType == 'desc' && columnName == sampleRow[i])" class="icon-design" title="High to Low">south</mat-icon>
@@ -96,8 +100,8 @@
 
     <ng-template #recursiveListTmpl let-itemLoop="list">
         <ng-container *ngFor="let item of itemLoop | priceRange : selectedValue : minAmountRange : maxAmountRange" >
-        <tr [ngClass]="{'sub-items-holder' : item.index == 3}">
-            <td (click)="expandRow(item)" [ngClass]="{'sub-items-holder' : item.index == 3}" [style.padding-left]="item.index*20+'px'"><span class="more-less-icon" *ngIf="item?.subitems?.length > 0">{{ item.expansion ? '⚊' : '✚'}}</span> {{ item.name }} </td>
+        <tr [ngClass]="{'sub-items-holder' : item.index >= 3}">
+            <td (click)="expandRow(item)" [ngClass]="{'sub-items-holder' : item.index >= 3}" [style.padding-left]="item.index*20+'px'"><span class="more-less-icon" *ngIf="item?.subitems?.length > 0">{{ item.expansion ? '⚊' : '✚'}}</span> {{ item.name }} </td>
             <ng-container *ngFor="let parentYears of duration">
                 <td class="data-edit" [ngClass]="{'edit-hover' : editFields}" *ngIf="!selectedYear.includes('y'+parentYears) ">  
                     <mat-form-field> 

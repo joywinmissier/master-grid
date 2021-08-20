@@ -17,7 +17,7 @@ export class AppComponent {
   stickLastColumn = false;
 
   //show edit on table for column
-  canEdit = true;
+  canEdit = false;
 
   //fix table header on scroll
   headerFix = false;
@@ -35,10 +35,68 @@ export class AppComponent {
   headerText = 'Year';
 
   filterJSON : FilterConfiguration = {
-    showSorting : false,
-    showFiltering : false
+    showSorting : true,
+    showFiltering : true
   }
 
+  oneTable = [
+    {
+      name: 'Target State',
+      y1: '5020.00',
+      y2: '10.00',
+      y3: '220.00',
+      y4: '2220.00',
+      y5: '110.00',
+      y6: '40.00',
+      y7: '330.00',
+      y8: '30.00',
+      y9: '30.00',
+      y10: '10.00',
+      total: 22572.2
+    },
+    {
+      name: 'Target State 1',
+      y1: '5020.00',
+      y2: '10.00',
+      y3: '220.00',
+      y4: '2220.00',
+      y5: '110.00',
+      y6: '40.00',
+      y7: '330.00',
+      y8: '30.00',
+      y9: '30.00',
+      y10: '10.00',
+      total: 22572.2,
+    },
+    {
+      name: 'Target State 2',
+      y1: '5020.00',
+      y2: '10.00',
+      y3: '220.00',
+      y4: '2220.00',
+      y5: '110.00',
+      y6: '40.00',
+      y7: '330.00',
+      y8: '30.00',
+      y9: '30.00',
+      y10: '10.00',
+      total: 22572.2,
+    },
+    {
+      name: 'Target State 3',
+      y1: '5020.00',
+      y2: '10.00',
+      y3: '220.00',
+      y4: '2220.00',
+      y5: '110.00',
+      y6: '40.00',
+      y7: '330.00',
+      y8: '30.00',
+      y9: '30.00',
+      y10: '10.00',
+      total: 22572.2,
+    }
+  ]
   //pl view data
   data1 = [
     {

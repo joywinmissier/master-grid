@@ -24,9 +24,6 @@ export class LibProfitlossComponent implements OnInit {
   //populating in table 
   @Input() lastRowData;
 
-  //show filter
-  @Input() showFilter : boolean;
-
   //stick first column
   @Input() isFirstSticky : boolean;
 
@@ -168,7 +165,12 @@ priceRange = [
     this.columnName = '';
     this.tableItems = [];
     this.tableItems = [...this.tempData];
-    console.log('Reset',this.orderType,this.columnName,this.tableItems);
+  }
+
+  resetDropdown(event: any) {
+    this.selectedValue = undefined;
+    this.rangeSelection = '';
+    event.stopPropagation();
   }
 
   //edit table column
@@ -246,6 +248,8 @@ priceRange = [
 
     if(this.selectedYear.includes(this.selectedValue)){
       this.selectedValue = undefined;
+      this.minAmountRange = undefined;
+      this.maxAmountRange = undefined;
       this.rangeSelection = '';
     }
   }
