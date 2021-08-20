@@ -24,9 +24,6 @@ export class LibProfitlossComponent implements OnInit {
   //populating in table 
   @Input() lastRowData;
 
-  //show filter
-  @Input() showFilter : boolean;
-
   //stick first column
   @Input() isFirstSticky : boolean;
 
@@ -135,20 +132,10 @@ priceRange = [
 
   //method to add "expansion" boolean to determine open/close of expansion panel
   manipulateData(listOfItems, start = 1) {
-    console.log('Items',listOfItems);
     listOfItems.map(items => {
       items['expansion'] = false;
       items['index'] = start;
       if (items.hasOwnProperty('subitems')) {
-        // items['subitems'].forEach(childItems => {
-        //   childItems['expansion'] = false;
-        //   if (childItems.hasOwnProperty('subitems')) {
-        //     childItems.subitems.map(subChildItems => {
-        //       subChildItems['expansion'] = false;
-        //     });
-        //   }
-        // });
-        console.log('Loop Items',items);
         let countIndex;
         countIndex = start + 1;
         items['subitems'].length > 0 ?  this.manipulateData(items['subitems'], countIndex ) : '';
@@ -156,10 +143,9 @@ priceRange = [
     });
   }
 
-  test1(item){
+  expandRow(item){
     if(item?.subitems?.length>0){
       item.expansion = !item.expansion;
-      // this.tableItems = this.getItems(this.tempData,null,0);
     }
  
     event.stopPropagation();
@@ -179,7 +165,12 @@ priceRange = [
     this.columnName = '';
     this.tableItems = [];
     this.tableItems = [...this.tempData];
-    console.log('Reset',this.orderType,this.columnName,this.tableItems);
+  }
+
+  resetDropdown(event: any) {
+    this.selectedValue = undefined;
+    this.rangeSelection = '';
+    event.stopPropagation();
   }
 
   //edit table column
@@ -194,8 +185,7 @@ priceRange = [
     this.clickedYear = 'y'+index;
     this.clickedName = categoryName;
     this.previousIndex = index;
-    // list['y'+index] = "1710";
-    // console.log('Edit Value',editValue,list);
+  
   }
 
   //cancel edit mode
@@ -243,11 +233,8 @@ priceRange = [
   }
 
   valueChange(yearNames, event, yearIndex){
-    console.log('Checked Unchecked');
     if(this.selectedYear.length > 0){
-      console.log('If',this.selectedYear);
       if(this.selectedYear.includes(this.sampleRow[yearIndex])){
-        console.log('If If',this.selectedYear);
         let removeIndex = this.selectedYear.indexOf(this.sampleRow[yearIndex]);
         this.selectedYear.splice(removeIndex, 1);
       }
@@ -256,30 +243,21 @@ priceRange = [
       }
     }
     else {
-      console.log('Else',this.selectedYear);
       this.selectedYear.push(this.sampleRow[yearIndex]);
+    }
+
+    if(this.selectedYear.includes(this.selectedValue)){
+      this.selectedValue = undefined;
+      this.minAmountRange = undefined;
+      this.maxAmountRange = undefined;
+      this.rangeSelection = '';
     }
   }
 
   priceFilter(min, max, range){
-    // this.tableItems = [...this.tempData];
     this.minAmountRange = min;
     this.maxAmountRange = max;
     this.rangeSelection = range;
-    // let filteredArray;
-    // if(typeof(max) !== "string"){
-    //  filteredArray = this.tableItems.filter(itemList =>{
-    //     console.log(itemList.y1>=min,itemList.y1<max);
-    //    return Number(itemList.y1) >= Number(min) && Number(itemList.y1) < Number(max)
-    //   });
-    //   console.log('filtered',filteredArray);
-    // }
-    // else{
-    //    filteredArray = this.tableItems.filter(itemList => Number(itemList.y1) >= Number(min));
-    //    console.log('filtered',filteredArray);
-    // }
-
-    // this.tableItems = [...filteredArray];
  
   }
 
@@ -291,19 +269,6 @@ priceRange = [
     this.selectedValue = undefined;
     this.tableItems = [...this.tempData]
   }
-
-  // getItems(data, items,index) {
-  //   data.forEach(x => {
-  //     if (!items)
-  //       items=[];
-  //     items.push(x);
-  //     items[items.length-1].index=index
-  //     if (x.subitems && x.expanded)
-  //       this.getItems(x.subitems,items,index+1);
-  //   }
-  //   )
-  //   return items;
-  // }
 
   resetPlaceholder(selectedData : MatSelect) {
     selectedData.placeholder = '';
