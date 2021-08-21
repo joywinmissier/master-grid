@@ -56,7 +56,7 @@ export class AppComponent {
     },
     {
       name: 'Target State 1',
-      y1: '5020.00',
+      y1: '5021.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',
@@ -70,7 +70,7 @@ export class AppComponent {
     },
     {
       name: 'Target State 2',
-      y1: '5020.00',
+      y1: '5022.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',
@@ -84,7 +84,7 @@ export class AppComponent {
     },
     {
       name: 'Target State 3',
-      y1: '5020.00',
+      y1: '5023.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',
@@ -281,8 +281,78 @@ export class AppComponent {
                   y8: '20.00',
                   y9: '0.00',
                   y10: '10.00',
-                  total: 22572.2
+                  total: 22572.2,
+                  subitems : [
+                    {
+                      name: 'Midrange',
+                      y1: '310.00',
+                      y2: '220.00',
+                      y3: '220.00',
+                      y4: '330.00',
+                      y5: '3210.00',
+                      y6: '20.00',
+                      y7: '10.00',
+                      y8: '20.00',
+                      y9: '1.00',
+                      y10: '22.00',
+                      total: 22572.2,
+                      // 'expanded': false,
+                      subitems: [
+                        {
+                          name: 'Midrange Third Party',
+                          y1: '310.00',
+                          y2: '220.00',
+                          y3: '220.00',
+                          y4: '330.00',
+                          y5: '3210.00',
+                          y6: '20.00',
+                          y7: '10.00',
+                          y8: '20.00',
+                          y9: '1.00',
+                          y10: '22.00',
+                          total: 22572.2,
+                          // 'expanded': false,
+                          subitems: [
+                            {
+                              name: 'Midrange Third Party Sub 1',
+                              y1: '310.00',
+                              y2: '220.00',
+                              y3: '220.00',
+                              y4: '330.00',
+                              y5: '3210.00',
+                              y6: '20.00',
+                              y7: '10.00',
+                              y8: '20.00',
+                              y9: '1.00',
+                              y10: '22.00',
+                              total: 22572.2,
+                              // 'expanded': false,
+                              subitems: [
+                                {
+                                  name: 'Midrange Third Party Sub 1 Sub',
+                                  y1: '310.00',
+                                  y2: '220.00',
+                                  y3: '220.00',
+                                  y4: '330.00',
+                                  y5: '3210.00',
+                                  y6: '20.00',
+                                  y7: '10.00',
+                                  y8: '20.00',
+                                  y9: '1.00',
+                                  y10: '22.00',
+                                  total: 22572.2,
+                                  // 'expanded': false,
+                                  subitems: []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                   // 'expanded': false,
+
                 },
                 {
                   name: 'Third Party 3',
