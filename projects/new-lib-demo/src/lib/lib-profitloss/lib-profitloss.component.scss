@@ -1,9 +1,9 @@
 tr > td:last-of-type {
-    background-color: #e6dcff !important;
+    background-color: #e6dcff ;
     padding-left: 1rem;
   }
   
-  tr {
+  tr:not(:last-child) {
     cursor: pointer;
     box-shadow: 0 1px 1px -2px rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 14%),
       0 1px 5px 0 rgb(0 0 0 / 12%);
@@ -67,20 +67,21 @@ tr > td:last-of-type {
   }
   /* th:first-child, th:last-child {z-index:2;background-color:red;} */
   
-  tr:last-child {
+ tr:last-child {
     background-color: #e6dcff;
-    td {
-      background-color: #e6dcff !important;
+    height: 4.75rem;
+     td {
+      background-color: #e6dcff ;
       font-weight: 600;
   
-      font-size: 1.2rem !important;
+      font-size: 1.2rem ;
     }
     td:last-child {
-      background-color: #7500c0 !important;
+      background-color: #7500c0 ;
       color: #ffffff;
       font-weight: 600;
   
-      font-size: 1.2rem !important;
+      font-size: 1.2rem ;
       padding-left: 1rem;
     }
   }
@@ -90,30 +91,34 @@ tr > td:last-of-type {
     background: #460073 ;
     color: white;
     height: 3.75rem;
-  
-    .category-design {
-      background: #460073 !important;
-      padding: 1rem;
-    }
+  }
+
+  #lastRow td:first-child{
+    background-color: #e6dcff;
+  }
+
+  #head-item .category-design {
+    background: #460073;
+    padding: 1rem;
   }
   
   .more-less-icon {
     color: #004dff;
   }
   
-  .gap-text {
-    padding-left: 1.8rem !important;
-  }
-  .sub-gap-text {
-    padding-left: 2.8rem !important;
-    background-color: #e6e6dc !important;
-  }
-  .subchild-text {
-    background-color: #e6e6dc !important;
-  }
+  // .gap-text {
+  //   padding-left: 1.8rem ;
+  // }
+  // .sub-gap-text {
+  //   padding-left: 2.8rem ;
+  //   background-color: #e6e6dc ;
+  // }
+  // .subchild-text {
+  //   background-color: #e6e6dc ;
+  // }
   
-  .sub-items-holder {
-    background-color: #e6e6dc !important;
+  #recursiveContainer .sub-items-holder {
+    background-color: #e6e6dc;
   }
   
   .table-size {
@@ -157,41 +162,6 @@ tr > td:last-of-type {
     td:last-child {
       font-weight: 400;
     }
-  }
-  
-  
-  
-  
-  .arrow {
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-    margin-bottom: 3px;
-    margin-left: 3px;
-    cursor: pointer;
-  }
-  
-  .right {
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-  }
-  
-  .left {
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
-  }
-  
-  .up {
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-    position: relative;
-    top: 5px;
-  }
-  
-  .down {
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
   }
 
   .close{
