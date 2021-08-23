@@ -84,6 +84,7 @@
         <ng-container
         *ngTemplateOutlet="recursiveListTmpl; context:{ list: tableItems }"
       ></ng-container>
+
       <ng-container *ngFor="let lastData of lastRowData;let i = index;">
         <tr class="row-text-design">
             <td>
@@ -105,9 +106,8 @@
             <ng-container *ngFor="let parentYears of duration">
                 <td class="data-edit" [ngClass]="{'edit-hover' : editFields}" *ngIf="!selectedYear.includes('y'+parentYears) ">  
                     <mat-form-field> 
-                        <input matInput (click)="resetClick()" [(ngModel)]="item['y'+parentYears]" (focus)="stopFocus()" (input)="onSearchChange($event.target.value)" [disabled]="((clickedYear !== 'y'+parentYears) || (item.name !== clickedName))" [value]="item['y'+parentYears]">
+                        <input matInput (click)="resetClick()" [(ngModel)]="item['y'+parentYears]" (focus)="stopFocus()" (input)="onSearchChange($event.target.value, item['y'+parentYears])" [disabled]="((clickedYear !== 'y'+parentYears) || (item.name !== clickedName))" [value]="item['y'+parentYears]">
                     </mat-form-field>
-                    
                     <ng-container *ngIf="editFields"> <mat-icon *ngIf="((clickedYear !== 'y'+parentYears) || (item.name !== clickedName))"  class="icon-design edit-icon" (click)="editData(item['y'+parentYears],item,parentYears,item.name)">edit</mat-icon></ng-container>
                     <mat-icon *ngIf="!((clickedYear !== 'y'+parentYears) || (item.name !== clickedName))" class="icon-design save-icon" title="Save" (click)="modifyData(item,parentYears)">check</mat-icon>
                     <mat-icon *ngIf="!((clickedYear !== 'y'+parentYears) || (item.name !== clickedName))" class="icon-design close-icon" title="close" (click)="closeEdit(item,parentYears)">close</mat-icon>
@@ -120,6 +120,8 @@
               *ngTemplateOutlet="recursiveListTmpl; context:{ list: item?.subitems }"
             ></ng-container>
              </ng-container>
-        </ng-container>
+        </ng-container> 
+               <div *ngIf="(itemLoop | priceRange : selectedValue : minAmountRange : maxAmountRange).length === 0" 
+               class="no-data">No Data Found..</div>
       </ng-template>
 </div>

@@ -87,7 +87,7 @@ tr > td:last-of-type {
   
   .header-align {
     text-align: left;
-    background: #460073 !important;
+    background: #460073 ;
     color: white;
     height: 3.75rem;
   
@@ -430,6 +430,14 @@ mat-form-field{
   mat-icon {
     margin-bottom: 3px;
   }
+}
+
+.no-data{
+  display: flex;
+  justify-content: center;
+  min-width: 65rem;
+  padding: 2rem;
+  font-size: 1.2rem;
 }
 
 

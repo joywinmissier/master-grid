@@ -1,5 +1,4 @@
-import { NonNullAssert } from '@angular/compiler';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { FilterConfiguration } from '../interface/plview.model';
 
@@ -39,6 +38,8 @@ export class LibProfitlossComponent implements OnInit {
   //filter sort configuration
   @Input() filterJson : FilterConfiguration;
 
+  @Output() notifyDataChange: EventEmitter<any> = new EventEmitter();
+
   //variable to dynamically bind years in template eg) y1,y2 etc..
   duration = [];
 
@@ -74,6 +75,8 @@ export class LibProfitlossComponent implements OnInit {
 
   //store previous edited year number like 1,2 
   previousIndex;
+
+  previousList;
 
 selectedYear = [];
 
@@ -176,16 +179,18 @@ priceRange = [
   //edit table column
   editData(editValue,list,index, categoryName){
     event.stopPropagation();
-   
+   console.log(index,list);
     if(this.previousValue !==''){
-      list['y'+this.previousIndex] = this.previousValue;
+      console.log('PV',this.previousIndex,this.previousValue,this.previousList);
+      this.previousList['y'+this.previousIndex] = this.previousValue;
+      this.previousValue = '';
     }
     this.previousValue = editValue;
     this.clickedInput = index;
     this.clickedYear = 'y'+index;
     this.clickedName = categoryName;
     this.previousIndex = index;
-  
+    this.previousList = list;
   }
 
   //cancel edit mode
@@ -193,7 +198,10 @@ priceRange = [
     event.stopPropagation();
     this.clickedYear = '';
     this.clickedName = '';
-    jsonList['y'+yearValue] = this.previousValue;
+    if(this.previousValue !== ''){
+      jsonList['y'+yearValue] = this.previousValue;
+    }
+    console.log(this.tableItems);
   }
 
   //save edited input
@@ -201,8 +209,19 @@ priceRange = [
     event.stopPropagation();
     this.clickedYear = '';
     this.clickedName = '';
-    jsonList['y'+yearValue] = this.changedData;
+    let tempResp =  JSON.parse(JSON.stringify(jsonList));;
+    tempResp['y'+yearValue] = this.previousValue;
+    let resp = {
+      editedRow : tempResp,
+      editedData : this.changedData,
+      editedYear : 'y'+yearValue,
+      previousDataa : this.previousValue
+    }
+    this.notifyDataChange.emit(resp);
+    // jsonList['y'+yearValue] = this.changedData;
     this.previousValue = '';
+
+
   }
 
   //avoid expansion panel open on input focus
@@ -211,9 +230,11 @@ priceRange = [
   }
 
   //store modified value on change event
-  onSearchChange(searchValue: string): void {  
+  onSearchChange(searchValue: string, nonModifiedData): void {  
     event.stopPropagation();
     this.changedData = searchValue;
+    // console.log(nonModifiedData);
+    // this.previousValue = nonModifiedData;
   }
 
   //avoid expansion panel open on input focus

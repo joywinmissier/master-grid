@@ -7,7 +7,7 @@
 
 
 <lib-lib-profitloss 
-    [tableItems]="oneTable" 
+    [tableItems]="data1" 
     [lastRowData]="lastItem"
     [isFirstSticky]="stickColumn" 
     [isLastSticky]="stickLastColumn" 
@@ -16,6 +16,7 @@
     [editFields]="canEdit" 
     [stickHeader]="headerFix"
     [filterJson] ="filterJSON"
+    (notifyDataChange)="getEditedData($event)"
     >
 </lib-lib-profitloss>
 </div>

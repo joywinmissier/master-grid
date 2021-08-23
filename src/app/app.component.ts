@@ -17,7 +17,7 @@ export class AppComponent {
   stickLastColumn = false;
 
   //show edit on table for column
-  canEdit = false;
+  canEdit = true;
 
   //fix table header on scroll
   headerFix = false;
@@ -526,6 +526,10 @@ export class AppComponent {
   //poping last data from array as net savings
    this.lastItem.push(this.data1.pop());
 
+  }
+
+  getEditedData(event){
+    console.log('Edited Data',event);
   }
 
 }
