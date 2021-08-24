@@ -1,0 +1,141 @@
+$white: #ffffff;
+$grey-text: #5a5a5a;
+$lable-text: #474b5f;
+$black: #000;
+
+$header-bg: #fcfcfc;
+//Primary colors variables
+
+// $primary-bg-1: #460073; //$primary-bg-1: #004DFF;
+// $primary-bg-2: #7500C0; //$primary-bg-2: #0032A5;
+// $primary-bg-3: #A100FF;
+// $primary-bg-4: #004DFF;
+$primary-bg-1: #004dff; //$primary-bg-1: #004DFF;
+$primary-bg-2: #7500c0; //$primary-bg-2: #0032A5;
+$primary-bg-3: #a100ff;
+$primary-bg-4: #460073;
+$primary-bg-5: #0041f0;
+
+//Secondary color variables
+
+$secondary-bg-1: #96968c; //$primary-bg-3: #B2B2B2;
+$secondary-bg-2: #e6e6dc; // $primary-bg-4: #F4F4F4;
+$secondary-bg-3: #e6dcff;
+$secondary-bg-4: #ff50a0;
+$secondary-bg-5: #727272;
+$secondary-bg-6: #d9d9d9;
+
+// dropdown color variable
+$dropdown-bg-1: #ebf0ff;
+$dropdown-bg-2: #9ea4ba4d;
+
+//input type box shadow
+$box-shadow-1: #9ea4ba33;
+$box-shadow-2: #ff32464d;
+$box-shadow-3: #004cfe4d;
+
+//RAG color Variables
+
+$rag-bg-1: #ff3246;
+$rag-bg-2: #ff7800;
+$rag-bg-3: #3bc58a;
+$rag-bg-4: #db0020;
+
+$rag-bg-success: #009654;
+$rag-bg-error: #be0101;
+$rag-bg-warning: #ffae02;
+$rag-bg-info: #0097e6;
+
+$error-msg: #db0020;
+$success-msg: #3bc58a;
+
+//Page Bg
+
+$page-bg-color: #f3f3f3;
+$page-bg-gradient: linear-gradient(274deg, #fd9b50 0%, #ec6082 22%, #bb20b6 50%, #aa1db9 62%, #9b1bbc 73%, #7515c2 100%)
+    0% 0% no-repeat padding-box;
+
+// grey color valriables
+$grey-1: #6c6c6c;
+$grey-2: #e9ecef;
+$grey-3: #a7a7a7;
+$grey-4: lightgray;
+
+//** Font Family constants ***/
+$graphik-regular: "Graphik-Regular-Web";
+$graphik-light: "Graphik-Light-Web";
+$graphik-medium: "Graphik-Medium-Web";
+$graphik-semibold: "Graphik-Semibold-Web";
+$graphik-black: "Graphik-Black-Web";
+
+//Buttons
+$primary-btn-active-from: #0043db;
+$primary-btn-active-to: #0083db;
+
+//popup
+$popheaderbg: #0906ad;
+
+//Save
+$save-failure: #db0020;
+$save-success: #3bc58a;
+$file-validation-progress: #ffb900;
+
+$deliverable-popup: #4745ff;
+$deliverable-popup-bg: #f3f7ff;
+
+//font family
+$material-icons-round: "Material Icons Round";
+$material-icons-sharp: "Material Icons Sharp";
+$material-icons-two-tone: "Material Icons Two Tone";
+$material-icons-outlined: "Material Icons Outlined";
+$material-icons: "Material Icons";
+
+//Normal table
+$table-header-font: #7515c0;
+$table-row-shadow: #0000000f;
+
+//ag grid variables
+$strpied-bg: #fafeff;
+$strpied-bg-1: #f9f9f9;
+$patterns-blue: #cef2ff;
+$grid-border: #fbfbfb;
+
+//tab variable
+$tab-header-color: #673ab7;
+
+//Accordian Variables
+$mat-card-background: #f8f8f7;
+$green-circle: green;
+$gray-circle: gray;
+$panel-space: #f2eafd;
+$check-circle: #09cc09;
+$progress-bg: #0032a5;
+$acc-btn-bg: #ededed;
+$acc-disabled-bg: #effaff;
+$acc-border: #bbbac561;
+
+//mat drawer variable
+$mat-drawer-bg: #b455aa;
+
+//mat card variables
+$mat-card-shadow: #3a789c33;
+
+//mat checkbox variables
+$mat-checkbox-bg: #808080;
+
+//header variable
+$search-icon : #707070;
+
+//bookmarked variables
+$bookmarked-ans : #0062fe;
+$bookmarked-not-ans: #ffae02;
+$bookmarked-ans-box: #0062fe;
+$bookmarked-ans-box-bg : #e5f1f5;
+$bookmarked-not-ans-box: darkorange;
+$bookmarked-not-ans-box-shadow : #fbe4c2;
+//dragdrop File upload variable
+$dragdrop-bg: #f7f9ff;
+$graddrop-border:#c1c1c1;
+
+//input arrao increase decrease variable
+$input-arrow-bg : #d6e2ff;

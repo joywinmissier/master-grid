@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { FilterConfiguration } from '../interface/plview.model';
 
 @Component({
   selector: 'lib-lib-profitloss',
   templateUrl: './lib-profitloss.component.html',
-  styleUrls: ['./lib-profitloss.component.scss']
+  styleUrls: ['./lib-profitloss.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LibProfitlossComponent implements OnInit {
 
@@ -215,7 +216,7 @@ priceRange = [
       editedRow : tempResp,
       editedData : this.changedData,
       editedYear : 'y'+yearValue,
-      previousDataa : this.previousValue
+      previousData : this.previousValue
     }
     this.notifyDataChange.emit(resp);
     // jsonList['y'+yearValue] = this.changedData;
