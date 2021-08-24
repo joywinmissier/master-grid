@@ -16,28 +16,28 @@ export class LibProfitlossComponent implements OnInit {
   @Input() tableItems = [];
 
   //number of years
-  @Input() numberOfDuration : number;
+  @Input() numberOfDuration: number;
 
   //populating header text in table 
-  @Input() headerName : string = '';
+  @Input() headerName: string = '';
 
   //populating in table 
   @Input() lastRowData;
 
   //stick first column
-  @Input() isFirstSticky : boolean;
+  @Input() isFirstSticky: boolean;
 
   //stick last column
-  @Input() isLastSticky : boolean;
+  @Input() isLastSticky: boolean;
 
   //enable editing feature
-  @Input() editFields : boolean;
+  @Input() editFields: boolean;
 
   //stick header on scrolling
-  @Input() stickHeader : boolean;
+  @Input() stickHeader: boolean;
 
   //filter sort configuration
-  @Input() filterJson : FilterConfiguration;
+  @Input() filterJson: FilterConfiguration;
 
   @Output() notifyDataChange: EventEmitter<any> = new EventEmitter();
 
@@ -54,10 +54,10 @@ export class LibProfitlossComponent implements OnInit {
   tempData;
 
   //filtering column name
-  columnName:string = '';
+  columnName: string = '';
 
   //filter order
-  orderType:string = '';
+  orderType: string = '';
 
   // store selected year number like 1,2 etc
   clickedInput;
@@ -77,40 +77,42 @@ export class LibProfitlossComponent implements OnInit {
   //store previous edited year number like 1,2 
   previousIndex;
 
+  deepSortRange : boolean = false;
+
   previousList;
 
-selectedYear = [];
+  selectedYear = [];
 
-updatedTotal;
+  updatedTotal;
 
-minAmountRange;
-maxAmountRange;
-rangeSelection;
+  minAmountRange;
+  maxAmountRange;
+  rangeSelection;
 
-selectedValue: string;
+  selectedValue: string;
 
-priceRange = [
-  {
-    'min' : 0,
-    'max' : 1000,
-    'range' : '0 - 1000'
-  },
-  {
-    'min' : 1001,
-    'max' : 5000,
-    'range' : '1001 - 5000'
-  },
-  {
-    'min' : 5001,
-    'max' : 10000,
-    'range' : '5001 - 10000'
-  },
-  {
-    'min' : 10001,
-    'max' : 'unlimited',
-    'range' : 'Above 10000'
-  }
-];
+  priceRange = [
+    {
+      'min': 0,
+      'max': 1000,
+      'range': '0 - 1000'
+    },
+    {
+      'min': 1001,
+      'max': 5000,
+      'range': '1001 - 5000'
+    },
+    {
+      'min': 5001,
+      'max': 10000,
+      'range': '5001 - 10000'
+    },
+    {
+      'min': 10001,
+      'max': 'unlimited',
+      'range': 'Above 10000'
+    }
+  ];
   //Angular Lifecycle
   ngOnInit(): void {
     this.manipulateData(this.tableItems);
@@ -130,40 +132,45 @@ priceRange = [
     //loop for generating headers Year 1, Year 2 etc..
     for (let i = 0; i < durationYears; i++) {
       this.sampleRow.push('y' + (i + 1));
-      this.rowHeader.push(this.headerName +' ' + (i + 1));
+      this.rowHeader.push(this.headerName + ' ' + (i + 1));
     }
   }
 
   //method to add "expansion" boolean to determine open/close of expansion panel
-  manipulateData(listOfItems, start = 1) {
+  manipulateData(listOfItems, start = 1, oldList?) {
     listOfItems.map(items => {
       items['expansion'] = false;
       items['index'] = start;
+      start == 1 ? items['isParent'] = true : items['isParent'] = false;
+      start == 1 ? items['id'] = items['name'].charAt(0) + start : items['id'] = oldList['name'].charAt(0) + start;
+
+      start != 1 ? items['parentName'] = oldList['name'] : items['parentName'] = '';
+      start != 1 ? items['parentId'] = oldList['id'] : items['parentId'] = '';
       if (items.hasOwnProperty('subitems')) {
         let countIndex;
         countIndex = start + 1;
-        items['subitems'].length > 0 ?  this.manipulateData(items['subitems'], countIndex ) : '';
+        items['subitems'].length > 0 ? this.manipulateData(items['subitems'], countIndex, items) : '';
       }
     });
   }
 
-  expandRow(item){
-    if(item?.subitems?.length>0){
+  expandRow(item) {
+    if (item?.subitems?.length > 0) {
       item.expansion = !item.expansion;
     }
- 
+
     event.stopPropagation();
   }
 
   //get sort order from directive
-  getSortOrderDetails(event){
-    console.log('Event',event);
+  getSortOrderDetails(event) {
+    console.log('Event', event);
     this.columnName = event.property;
     this.orderType = event.order;
   }
 
   //reset sort
-  restFilter(){
+  restFilter() {
     event.stopPropagation();
     this.orderType = '';
     this.columnName = '';
@@ -174,64 +181,77 @@ priceRange = [
   resetDropdown(event: any) {
     this.selectedValue = undefined;
     this.rangeSelection = '';
+    this.minAmountRange = undefined;
+    this.maxAmountRange = undefined;
     event.stopPropagation();
   }
 
   //edit table column
-  editData(editValue,list,index, categoryName){
+  editData(editValue, list, index, categoryName) {
     event.stopPropagation();
-   console.log(index,list);
-    if(this.previousValue !==''){
-      console.log('PV',this.previousIndex,this.previousValue,this.previousList);
-      this.previousList['y'+this.previousIndex] = this.previousValue;
+    console.log(index, list);
+    if (this.previousValue !== '') {
+      console.log('PV', this.previousIndex, this.previousValue, this.previousList);
+      this.previousList['y' + this.previousIndex] = this.previousValue;
       this.previousValue = '';
     }
     this.previousValue = editValue;
     this.clickedInput = index;
-    this.clickedYear = 'y'+index;
+    this.clickedYear = 'y' + index;
     this.clickedName = categoryName;
     this.previousIndex = index;
     this.previousList = list;
   }
 
   //cancel edit mode
-  closeEdit(jsonList, yearValue){
+  closeEdit(jsonList, yearValue) {
     event.stopPropagation();
     this.clickedYear = '';
     this.clickedName = '';
-    if(this.previousValue !== ''){
-      jsonList['y'+yearValue] = this.previousValue;
+    if (this.previousValue !== '') {
+      jsonList['y' + yearValue] = this.previousValue;
     }
     console.log(this.tableItems);
   }
 
   //save edited input
-  modifyData(jsonList, yearValue){
+  modifyData(jsonList, yearValue) {
     event.stopPropagation();
     this.clickedYear = '';
     this.clickedName = '';
-    let tempResp =  JSON.parse(JSON.stringify(jsonList));;
-    tempResp['y'+yearValue] = this.previousValue;
+    let tempResp = JSON.parse(JSON.stringify(jsonList));;
+    tempResp['y' + yearValue] = this.previousValue;
     let resp = {
-      editedRow : tempResp,
-      editedData : this.changedData,
-      editedYear : 'y'+yearValue,
-      previousData : this.previousValue
+      editedRow: tempResp,
+      editedData: this.changedData,
+      editedYear: 'y' + yearValue,
+      previousData: this.previousValue
     }
     this.notifyDataChange.emit(resp);
     // jsonList['y'+yearValue] = this.changedData;
     this.previousValue = '';
 
+  }
+
+  nameShortener(str) {
+    if(str!==''){
+      var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
+      var acronym = matches.join(''); // JSON
+      return acronym;
+    }
+    else {
+      return '';
+    }
 
   }
 
   //avoid expansion panel open on input focus
-  stopFocus(){
+  stopFocus() {
     event.stopPropagation();
   }
 
   //store modified value on change event
-  onSearchChange(searchValue: string, nonModifiedData): void {  
+  onSearchChange(searchValue: string, nonModifiedData): void {
     event.stopPropagation();
     this.changedData = searchValue;
     // console.log(nonModifiedData);
@@ -239,13 +259,13 @@ priceRange = [
   }
 
   //avoid expansion panel open on input focus
-  resetClick(){
+  resetClick() {
     event.stopPropagation();
   }
 
-  getUpdatedTotal(totalValue, list){
-    let sumTotal= 0;
-    this.selectedYear.map((iteratedValue)=>{
+  getUpdatedTotal(totalValue, list) {
+    let sumTotal = 0;
+    this.selectedYear.map((iteratedValue) => {
       sumTotal = sumTotal + Number(list[iteratedValue]);
     });
 
@@ -254,9 +274,9 @@ priceRange = [
     return this.updatedTotal;
   }
 
-  valueChange(yearNames, event, yearIndex){
-    if(this.selectedYear.length > 0){
-      if(this.selectedYear.includes(this.sampleRow[yearIndex])){
+  valueChange(yearNames, event, yearIndex) {
+    if (this.selectedYear.length > 0) {
+      if (this.selectedYear.includes(this.sampleRow[yearIndex])) {
         let removeIndex = this.selectedYear.indexOf(this.sampleRow[yearIndex]);
         this.selectedYear.splice(removeIndex, 1);
       }
@@ -268,7 +288,7 @@ priceRange = [
       this.selectedYear.push(this.sampleRow[yearIndex]);
     }
 
-    if(this.selectedYear.includes(this.selectedValue)){
+    if (this.selectedYear.includes(this.selectedValue)) {
       this.selectedValue = undefined;
       this.minAmountRange = undefined;
       this.maxAmountRange = undefined;
@@ -276,14 +296,14 @@ priceRange = [
     }
   }
 
-  priceFilter(min, max, range){
+  priceFilter(min, max, range) {
     this.minAmountRange = min;
     this.maxAmountRange = max;
     this.rangeSelection = range;
- 
+
   }
 
-  clearFilter(){
+  clearFilter() {
     this.rangeSelection = '';
     this.selectedYear = [];
     this.minAmountRange = undefined;
@@ -292,7 +312,7 @@ priceRange = [
     this.tableItems = [...this.tempData]
   }
 
-  resetPlaceholder(selectedData : MatSelect) {
+  resetPlaceholder(selectedData: MatSelect) {
     selectedData.placeholder = '';
   }
 
