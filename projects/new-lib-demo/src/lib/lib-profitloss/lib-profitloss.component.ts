@@ -39,6 +39,10 @@ export class LibProfitlossComponent implements OnInit {
   //filter sort configuration
   @Input() filterJson: FilterConfiguration;
 
+  //fresize columns
+  @Input() resizeColumn;
+
+
   @Output() notifyDataChange: EventEmitter<any> = new EventEmitter();
 
   //variable to dynamically bind years in template eg) y1,y2 etc..

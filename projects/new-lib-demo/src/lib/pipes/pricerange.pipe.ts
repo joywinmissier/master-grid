@@ -13,7 +13,7 @@ export class PricerangePipe implements PipeTransform {
 
   transform(value: any, columnName, minValue, maxValue, deepSearch: boolean = false): any {
 
-    if (!deepSearch) {
+    // if (!deepSearch) {
       if (minValue !== undefined && maxValue !== undefined && columnName !== undefined) {
         if (typeof (maxValue) !== "string") {
           console.log(columnName, minValue, maxValue);
@@ -32,20 +32,20 @@ export class PricerangePipe implements PipeTransform {
         return value;
       }
     }
-    else {
-      if (minValue !== undefined && maxValue !== undefined && columnName !== undefined) {
-        this.searchedItems = [];
-        this.key = minValue;
-        this.prop = columnName;
-        this.childrenPropName = 'subitems';
-        let searchResult = this.searchRecursive(value);
-        return searchResult;
-      }
-      return value;
-    }
+  //   else {
+  //     if (minValue !== undefined && maxValue !== undefined && columnName !== undefined) {
+  //       this.searchedItems = [];
+  //       this.key = minValue;
+  //       this.prop = columnName;
+  //       this.childrenPropName = 'subitems';
+  //       let searchResult = this.searchRecursive(value);
+  //       return searchResult;
+  //     }
+  //     return value;
+  //   }
 
 
-  }
+  // }
 
   searchRecursive(value) {
     for (var i = 0; i < value.length; i++) {

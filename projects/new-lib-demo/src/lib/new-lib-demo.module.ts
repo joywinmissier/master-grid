@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { PricerangePipe } from './pipes/pricerange.pipe';
+import { ResizableModule } from './resize/resize.module';
 
 
 
@@ -21,7 +22,8 @@ import { PricerangePipe } from './pipes/pricerange.pipe';
     BrowserModule,
     CommonModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    ResizableModule
   ],
   exports: [
     NewLibDemoComponent,

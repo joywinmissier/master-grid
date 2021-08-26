@@ -1,7 +1,7 @@
 @import "./../../../styles/variable";
 
   tr > td:last-of-type {
-    background-color: #e6dcff ;
+    background-color: $secondary-bg-3 ;
     padding-left: 1rem;
   }
   
@@ -10,7 +10,7 @@
     box-shadow: 0 1px 1px -2px rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 14%),
       0 1px 5px 0 rgb(0 0 0 / 12%);
     height: 4.75rem;
-    background-color: #ffffff;
+    background-color: $white;
   }
   .table-container {
     overflow: auto;
@@ -33,7 +33,7 @@
     position: sticky;
     left: 0;
     z-index: 2;
-    background-color: white;
+    background-color: $white;
     box-shadow: 0 1px 1px -2px rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 14%),
       0 1px 5px 0 rgb(0 0 0 / 12%);
     width: 250px;
@@ -54,7 +54,7 @@
     position: sticky;
     right: 0;
     z-index: 2;
-    background-color: #460073;
+    background-color: $primary-bg-4;
     box-shadow: 0 1px 1px -2px rgb(0 0 0 / 20%), 0 1px 2px 0 rgb(0 0 0 / 14%),
     0 1px 5px 0 rgb(0 0 0 / 12%);
     width: 250px;
@@ -70,17 +70,17 @@
   /* th:first-child, th:last-child {z-index:2;background-color:red;} */
   
  tr:last-child {
-    background-color: #e6dcff;
+    background-color: $secondary-bg-3;
     height: 4.75rem;
      td {
-      background-color: #e6dcff ;
+      background-color: $secondary-bg-3 ;
       font-weight: 600;
   
       font-size: 1.2rem ;
     }
     td:last-child {
-      background-color: #7500c0 ;
-      color: #ffffff;
+      background-color: $primary-bg-2 ;
+      color: $white;
       font-weight: 600;
   
       font-size: 1.2rem ;
@@ -90,22 +90,22 @@
   
   .header-align {
     text-align: left;
-    background: #460073 ;
-    color: white;
+    background: $primary-bg-4 ;
+    color: $white;
     height: 3.75rem;
   }
 
   #lastRow td:first-child{
-    background-color: #e6dcff;
+    background-color: $secondary-bg-3;
   }
 
   #head-item .category-design {
-    background: #460073;
+    background: $primary-bg-4;
     padding: 1rem;
   }
   
   .more-less-icon {
-    color: #004dff;
+    color: $primary-bg-1;
   }
   
   // .gap-text {
@@ -120,16 +120,17 @@
   // }
   
   #recursiveContainer .sub-items-holder {
-    background-color: #e6e6dc;
+    background-color: $secondary-bg-2;
   }
   
   .table-size {
     width: 100%;
+    position: relative;
   }
   
   .row-text-design {
     td {
-      color: #000000;
+      color: $black;
       font-size: 1.08rem;
       font-weight: 400;
     }
@@ -204,7 +205,7 @@
 
     .edit-icon{
       display: none;
-      color: #7500c0;
+      color: $primary-bg-2;
     }
   }
 
@@ -222,7 +223,11 @@
     top: 2px;
     cursor: pointer;
   }
-
+  th#resizeHeader:hover  {
+  
+    background-color: $primary-bg-2;
+  
+}
   th:hover {
     .hide{
       display: block;
@@ -239,7 +244,7 @@
 }
 
 .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after{
-  color: #000;
+  color: $black;
 }
 
 .header-stick{
@@ -254,7 +259,7 @@
 
 .edit-hover:hover{
 
-  border: 1px solid #7500c0;
+  border: 1px solid $primary-bg-2;
  
 }
 
@@ -264,18 +269,18 @@
   margin: 1rem;
   flex-wrap: wrap;
   .mat-checkbox-frame {
-    border-color: #7500c0;
+    border-color: $primary-bg-2;
   }
 }
 
 
   .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
     opacity: 0.03;
-    background-color: #7500c0;
+    background-color: $primary-bg-2;
   }
   
    .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-    background-color: #7500c0;
+    background-color: $primary-bg-2;
   }
 
 
@@ -287,7 +292,7 @@
   }
   
   .filter-icon{
-    color: #7500c0;
+    color: $primary-bg-2;
     font-size: 22px;
     margin-left: 0.75rem;
   }
@@ -318,13 +323,14 @@
 
     .hide-show-text{
       font-weight: 400;
-      color: #6C6C6C;
+      color: $grey-1;
     }
   }
 }
 
 .horizontal-gap{
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .slider-padding{
@@ -345,26 +351,26 @@
 }
 
 .filtered-button{
-  background-color: #7500c0;
-  color: white;
+  background-color: $primary-bg-2;
+  color: $white;
 }
 
 .panel-title{
   font-size: 1rem;
-  color: #000;
+  color: $black;
   font-weight: 500;
 }
 
 .title-container{
   padding: 1rem 1rem 0 1rem;
-  border-bottom: 4px solid #a100ff;
+  border-bottom: 4px solid $primary-bg-3;
 }
 
 .input_type_wrap {
   
 .mat-form-field-flex {
-  background: #fff 0 0 no-repeat padding-box;
-  color: #000;
+  background: $white 0 0 no-repeat padding-box;
+  color: $black;
   border-radius: 0;
   box-shadow: 0 1px 5px rgb(158 164 186 / 20%);
   padding: 0;
@@ -403,7 +409,7 @@ mat-form-field{
   margin-left: 1.5rem;
 }
 .label-text{
-  color: #000;
+  color: $black;
   font-weight: 500;
   margin-bottom: 0.25rem;
 }
@@ -411,6 +417,12 @@ mat-form-field{
 .reset-drop{
   mat-icon {
     margin-bottom: 3px;
+  }
+}
+
+th:first-child{
+  .wrapper .bar{
+    margin-right: -16px;
   }
 }
 
