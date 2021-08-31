@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { Directive, ElementRef, Inject, Output } from "@angular/core";
+import { Directive, ElementRef, Inject, Output,EventEmitter } from "@angular/core";
 import {
   distinctUntilChanged,
   map,
@@ -17,6 +17,8 @@ export class ResizableDirective {
 
 private _document?: Document;
 
+@Output() expansionDetails :EventEmitter<any> = new EventEmitter();
+
   @Output()
   readonly resize = fromEvent<MouseEvent>(
     this.elementRef.nativeElement,
@@ -27,14 +29,24 @@ private _document?: Document;
       const { width, right } = this.elementRef.nativeElement
         .closest("th")
         .getBoundingClientRect();
+        console.log('right',this.elementRef.nativeElement.closest("th").classList
+        );
+
+
+          this.expansionDetails.emit({classIdentifier : this.elementRef.nativeElement.closest("th").classList[0]});
+
+    
 
       return fromEvent<MouseEvent>(this._document, "mousemove").pipe(
         map(({ clientX }) => width + clientX - right),
         distinctUntilChanged(),
         takeUntil(fromEvent(this._document, "mouseup"))
       );
+
+      
     })
   );
+  
 
   constructor(
     @Inject(DOCUMENT) documentRef: any,
