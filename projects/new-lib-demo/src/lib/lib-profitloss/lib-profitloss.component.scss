@@ -233,7 +233,7 @@
   }
   th#resizeHeader:hover  {
   
-    background-color: $primary-bg-2;
+    background-color: rgb(117,0,192);
   
 }
   th:hover {
@@ -270,16 +270,24 @@
   border: 1px solid $primary-bg-2;
  
 }
-
-.filter-boxes{
+.button-align{
   display: flex;
-  // justify-content: space-between;
-  margin: 1rem;
-  flex-wrap: wrap;
-  .mat-checkbox-frame {
-    border-color: $primary-bg-2;
-  }
+  justify-content: space-between;
 }
+
+.button-end{
+  display: flex;
+  justify-content: end;
+}
+  .filter-boxes{
+    display: flex;
+    // justify-content: space-between;
+    margin: 1rem;
+    flex-wrap: wrap;
+    .mat-checkbox-frame {
+      border-color: $primary-bg-2;
+    }
+  }
 
 
   .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
@@ -440,6 +448,10 @@ th:first-child{
   min-width: 65rem;
   padding: 2rem 2rem 2rem 3rem;
   font-size: 1.2rem;
+}
+
+.select-row{
+  margin-right: 0.5rem
 }
 
 

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
+
 import { FilterConfiguration } from '../interface/plview.model';
+import { NewLibDemoService } from '../new-lib-demo.service';
 
 @Component({
   selector: 'lib-lib-profitloss',
@@ -10,7 +12,7 @@ import { FilterConfiguration } from '../interface/plview.model';
 })
 export class LibProfitlossComponent implements OnInit {
 
-  constructor() { }
+  constructor(private libService : NewLibDemoService) { }
 
   //populating in table 
   @Input() tableItems = [];
@@ -63,6 +65,8 @@ export class LibProfitlossComponent implements OnInit {
   //filter order
   orderType: string = '';
 
+  str = '';
+
   // store selected year number like 1,2 etc
   clickedInput;
 
@@ -75,17 +79,31 @@ export class LibProfitlossComponent implements OnInit {
   //store value before start editing
   previousValue = '';
 
+  public count = 0;
+
   //store changed data to modify in json
   changedData;
 
   //store previous edited year number like 1,2 
   previousIndex;
 
-  deepSortRange : boolean = false;
+  deepSortRange: boolean = false;
 
   previousList;
 
+  someData = [];
+
   selectedYear = [];
+
+  parentExcel = [];
+
+  childExcel = [];
+
+  exportingItems = [];
+
+  workItem1 = [];
+
+  workItem2 = [];
 
   updatedTotal;
 
@@ -94,6 +112,10 @@ export class LibProfitlossComponent implements OnInit {
   rangeSelection;
 
   selectedValue: string;
+
+  flattenObject = [];
+
+  dataForExcelSheet = [];
 
   priceRange = [
     {
@@ -117,6 +139,7 @@ export class LibProfitlossComponent implements OnInit {
       'range': 'Above 10000'
     }
   ];
+  
   //Angular Lifecycle
   ngOnInit(): void {
     this.manipulateData(this.tableItems);
@@ -144,15 +167,19 @@ export class LibProfitlossComponent implements OnInit {
   manipulateData(listOfItems, start = 1, oldList?) {
     listOfItems.map(items => {
       items['expansion'] = false;
+      items['checked'] = false;
       items['index'] = start;
       start == 1 ? items['isParent'] = true : items['isParent'] = false;
       start == 1 ? items['id'] = items['name'].charAt(0) + start : items['id'] = oldList['name'].charAt(0) + start;
 
       start != 1 ? items['parentName'] = oldList['name'] : items['parentName'] = '';
       start != 1 ? items['parentId'] = oldList['id'] : items['parentId'] = '';
+
+      items.hasOwnProperty('subitems') == false ? items['hasChild']= false : '';
       if (items.hasOwnProperty('subitems')) {
         let countIndex;
         countIndex = start + 1;
+        items['subitems'].length>0 ? items['hasChild'] = true: items['hasChild']= false;
         items['subitems'].length > 0 ? this.manipulateData(items['subitems'], countIndex, items) : '';
       }
     });
@@ -237,16 +264,96 @@ export class LibProfitlossComponent implements OnInit {
 
   }
 
-  nameShortener(str) {
-    if(str!==''){
-      var matches = str.match(/\b(\w)/g); // ['J','S','O','N']
-      var acronym = matches.join(''); // JSON
-      return acronym;
+  // checkbox selection handle
+  exportSelect(chosenRow, completed: boolean) {
+   
+    if (chosenRow['isParent']) {
+     
+      if (chosenRow.subitems !== undefined) {
+        if (chosenRow.subitems.length == 0) {
+          return;
+        }
+      }
+      chosenRow['checked'] = !chosenRow['checked'];
+      //chosenRow.subitems.forEach(t => t.checked = completed);
+      chosenRow.hasOwnProperty('subitems') ? this.exportSelect(chosenRow['subitems'], completed) : '';
+    }
+    else if(chosenRow.length > 0){
+  
+      // chosenRow['checked'] = !chosenRow['checked'];
+      chosenRow.forEach(t => t.checked = completed);
+      chosenRow.map((data)=>{
+        data.hasOwnProperty('subitems') ? this.exportSelect(data['subitems'], completed) : '';
+      })
+      //chosenRow.hasOwnProperty('subitems') ? this.exportSelect(chosenRow['subitems'], completed) : '';
     }
     else {
-      return '';
+      chosenRow['checked'] = !chosenRow['checked'];
+      chosenRow.hasOwnProperty('subitems') ? this.exportSelect(chosenRow['subitems'], completed) : '';
     }
 
+    event.stopPropagation();
+  }
+
+  //export to excel
+  exportData() {
+    this.exportingItems = [];
+    this.flattenObject = [];
+    this.someData = [];
+    this.dataForExcelSheet = [];
+
+    // push selected items for exporting
+    this.tableItems.map((itemData) => {
+      if (itemData['checked']) {
+        this.exportingItems.push(itemData);
+      }
+    });
+
+    //service method to flatten json from nested json
+    this.flattenObject = this.libService.getSeperation(this.exportingItems);
+   
+   // constructing objects required for excel by extracting from original object
+    this.flattenObject.map((yearList)=>{
+      this.str='';
+      this.str+=`"Category" :"${yearList['name']}",`
+      for(let number = 1; number <= this.numberOfDuration; number ++){
+        // let comma = number !== this.numberOfDuration ? ',' : '';
+        this.str+=`"Year ${number}" :${yearList['y'+number]}`+ ','
+      }
+      this.str+=`"Total" :${yearList['total']},"isParent" : ${yearList['isParent']},"index" : ${yearList['index']}`
+      let demo = `{${this.str}}`;
+      this.someData.push(JSON.parse(demo));
+    });
+   
+    // returns array of values from json key
+    this.getExcelRowValues(this.someData);
+   
+    // service to generate excel
+    this.libService.generateExcel(this.dataForExcelSheet,'Profit Loss Report', 'Profit Loss View', this.someData)
+  }
+
+
+  // method to get json values and store in array
+  getExcelRowValues(flatData){
+    flatData.map((row: any) => {
+      this.dataForExcelSheet.push(Object.values(row))
+    })
+  }
+
+
+  // method to detect all checkbox selected or not
+  someComplete(rowItems): boolean {
+
+    let isCompleted = rowItems.subitems !== undefined ? rowItems.subitems.every(t => t.checked) : false;
+    if (rowItems.subitems !== undefined) {
+      if (rowItems.subitems.length == 0) {
+        return false;
+      }
+      else {
+        return rowItems.subitems.filter(t => t.checked).length > 0 && !isCompleted;
+      }
+
+    }
   }
 
   //avoid expansion panel open on input focus

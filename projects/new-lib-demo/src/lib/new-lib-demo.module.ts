@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { NewLibDemoComponent } from './new-lib-demo.component';
 import { LibProfitlossComponent } from './lib-profitloss/lib-profitloss.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { SortDirective } from './directives/sort.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -25,6 +25,7 @@ import { ResizableModule } from './resize/resize.module';
     MaterialModule,
     ResizableModule
   ],
+  providers: [DatePipe],
   exports: [
     NewLibDemoComponent,
     LibProfitlossComponent

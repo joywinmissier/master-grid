@@ -1,68 +1,77 @@
-<div class="filter-holder" *ngIf="filterJson?.showFiltering">
-    <button class="filter-button" mat-stroked-button [matMenuTriggerFor]="menu">Filter
-        <mat-icon class="filter-icon">filter_list</mat-icon>
-    </button>
-    <mat-menu [class]="'filter-menu-layout'" #menu="matMenu">
-        <div class="title-container">
-            <p class="panel-title">Filter By</p>
-        </div>
-        <div class="hide-holder horizontal-gap" *ngIf="filterJson?.hideShowFiltering">
-            <div class="hide-filter-text-holder">
-                <p class="hide-show-text">Hide/Show</p>
+<div  [ngClass]="{'button-align' : filterJson?.showFiltering, 'button-end' : !filterJson?.showFiltering}">
+    <div class="filter-holder" *ngIf="filterJson?.showFiltering">
+        <button class="filter-button" mat-stroked-button [matMenuTriggerFor]="menu">Filter
+            <mat-icon class="filter-icon">filter_list</mat-icon>
+        </button>
+        <mat-menu [class]="'filter-menu-layout'" #menu="matMenu">
+            <div class="title-container">
+                <p class="panel-title">Filter By</p>
             </div>
-            <mat-divider [vertical]="true"></mat-divider>
-            <div id="yearCheckbox" class="filter-boxes" (click)="$event.stopPropagation()">
-                <mat-checkbox *ngFor="let yearNames of rowHeader;let yearIndex = index;"
-                    [checked]="selectedYear.includes(sampleRow[yearIndex])" class="move-checkbox"
-                    (change)="valueChange(yearNames,$event, yearIndex)" [ngStyle]="{'color': '#75003'}">
-                    {{ yearNames }}
-                </mat-checkbox>
-            </div>
-        </div>
-        <mat-divider class="horizontal-gap" *ngIf="filterJson?.hideShowFiltering"></mat-divider>
-        <div class="hide-holder horizontal-gap" *ngIf="filterJson?.rangeFiltering">
-            <div class="hide-filter-text-holder">
-                <p class="hide-show-text">Range</p>
-            </div>
-            <mat-divider [vertical]="true"></mat-divider>
-
-            <div (click)="$event.stopPropagation()">
-                <div class="filter-input">
-                    <label class="label-text">Choose Year to Filter by Range</label>
-                    <mat-form-field class="input_type_wrap">
-                        <mat-select #select [(ngModel)]="selectedValue" (opened)="resetPlaceholder(select)"
-                            floatLabel="never">
-                            <mat-option [disabled]="selectedYear.includes(sampleRow[dropIndex])"
-                                *ngFor="let yearNames of rowHeader;let dropIndex = index;"
-                                [value]="sampleRow[dropIndex]">
-                                {{yearNames}}
-                            </mat-option>
-                        </mat-select>
-                        <button class="reset-drop" mat-button matSuffix *ngIf="selectedValue" mat-icon-button
-                            aria-label="Clear" (click)="resetDropdown($event)">
-                            <mat-icon matTooltip="Reset">close</mat-icon>
-                        </button>
-                    </mat-form-field>
+            <div class="hide-holder horizontal-gap" *ngIf="filterJson?.hideShowFiltering">
+                <div class="hide-filter-text-holder">
+                    <p class="hide-show-text">Hide/Show</p>
                 </div>
-                <div id="rangeFilter" class="slider-padding"
-                    [matTooltip]="selectedValue == undefined ? 'Choose a year in dropdown to filter by range' : ''"
-                    matTooltipPosition="above">
-                    <button class="range-button" [disabled]="selectedValue == undefined"
-                        [ngClass]="{'filtered-button' : buttonLoop.range == rangeSelection}" mat-stroked-button
-                        *ngFor="let buttonLoop of priceRange"
-                        (click)="priceFilter(buttonLoop.min,buttonLoop.max, buttonLoop.range)">{{buttonLoop.range}}</button>
+                <mat-divider [vertical]="true"></mat-divider>
+                <div id="yearCheckbox" class="filter-boxes" (click)="$event.stopPropagation()">
+                    <mat-checkbox *ngFor="let yearNames of rowHeader;let yearIndex = index;"
+                        [checked]="selectedYear.includes(sampleRow[yearIndex])" class="move-checkbox"
+                        (change)="valueChange(yearNames,$event, yearIndex)" [ngStyle]="{'color': '#75003'}">
+                        {{ yearNames }}
+                    </mat-checkbox>
                 </div>
-
             </div>
-        </div>
-        <mat-divider class="horizontal-gap" *ngIf="filterJson?.rangeFiltering"></mat-divider>
-        <div>
-            <button mat-button color="warn" (click)="clearFilter()"
-                [disabled]="!selectedYear.length > 0 && selectedValue == undefined">Clear all filters</button>
-        </div>
-
-    </mat-menu>
+            <mat-divider class="horizontal-gap" *ngIf="filterJson?.hideShowFiltering"></mat-divider>
+            <div class="hide-holder horizontal-gap" *ngIf="filterJson?.rangeFiltering">
+                <div class="hide-filter-text-holder">
+                    <p class="hide-show-text">Range</p>
+                </div>
+                <mat-divider [vertical]="true"></mat-divider>
+    
+                <div (click)="$event.stopPropagation()">
+                    <div class="filter-input">
+                        <label class="label-text">Choose Year to Filter by Range</label>
+                        <mat-form-field class="input_type_wrap">
+                            <mat-select #select [(ngModel)]="selectedValue" (opened)="resetPlaceholder(select)"
+                                floatLabel="never">
+                                <mat-option [disabled]="selectedYear.includes(sampleRow[dropIndex])"
+                                    *ngFor="let yearNames of rowHeader;let dropIndex = index;"
+                                    [value]="sampleRow[dropIndex]">
+                                    {{yearNames}}
+                                </mat-option>
+                            </mat-select>
+                            <button class="reset-drop" mat-button matSuffix *ngIf="selectedValue" mat-icon-button
+                                aria-label="Clear" (click)="resetDropdown($event)">
+                                <mat-icon matTooltip="Reset">close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <div id="rangeFilter" class="slider-padding"
+                        [matTooltip]="selectedValue == undefined ? 'Choose a year in dropdown to filter by range' : ''"
+                        matTooltipPosition="above">
+                        <button class="range-button" [disabled]="selectedValue == undefined"
+                            [ngClass]="{'filtered-button' : buttonLoop.range == rangeSelection}" mat-stroked-button
+                            *ngFor="let buttonLoop of priceRange"
+                            (click)="priceFilter(buttonLoop.min,buttonLoop.max, buttonLoop.range)">{{buttonLoop.range}}</button>
+                    </div>
+    
+                </div>
+            </div>
+            <mat-divider class="horizontal-gap" *ngIf="filterJson?.rangeFiltering"></mat-divider>
+            <div>
+                <button mat-button color="warn" (click)="clearFilter()"
+                    [disabled]="!selectedYear.length > 0 && selectedValue == undefined">Clear all filters</button>
+            </div>
+    
+        </mat-menu>
+    </div>
+    
+    <div class="filter-holder">
+        <button class="filter-button" mat-stroked-button (click)="exportData()">Export
+            <mat-icon class="filter-icon">file_download</mat-icon>
+        </button>
+    </div>
 </div>
+
 
 <div class="table-container" [ngClass]="{'table-height': stickHeader}">
     <table class="table-size"
@@ -165,7 +174,13 @@
         <ng-container *ngFor="let item of itemLoop | priceRange : selectedValue : minAmountRange : maxAmountRange">
             <tr id="recursiveContainer" (click)="expandRow(item)" [ngClass]="{'sub-items-holder' : item.index >= 3}">
                 <td  [ngClass]="{'sub-items-holder' : item.index >= 3}"
-                    [style.padding-left]="item.index*20+'px'"><span class="more-less-icon"
+                    [style.padding-left]="item.index*20+'px'"> <mat-checkbox *ngIf="filterJson?.rowSelection"
+                    (click)="resetClick()" 
+                    (change)="exportSelect(item, $event.checked)"
+                    [indeterminate]="someComplete(item)"
+                    [checked]="item.checked"
+                    [ngStyle]="{'color': '#75003'}" class="select-row"></mat-checkbox>
+                    <span class="more-less-icon"
                         *ngIf="item?.subitems?.length > 0">{{ item.expansion ? '⚊' : '✚'}}</span> {{ item.name }} </td>
                 <ng-container *ngFor="let parentYears of duration">
                     <td  class="data-edit"

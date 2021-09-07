@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FilterConfiguration } from 'dist/new-lib-demo/lib/interface/plview.model';
-import { LibProfitlossComponent } from 'new-lib-demo';
+
+
+
 
 @Component({
   selector: 'app-root',
@@ -15,10 +17,10 @@ export class AppComponent {
   stickColumn = true;
 
   //stick last column
-  stickLastColumn = false;
+  stickLastColumn = true;
 
   //show edit on table for column
-  canEdit = false;
+  canEdit = true;
 
   //fix table header on scroll
   headerFix = false;
@@ -39,7 +41,8 @@ export class AppComponent {
     showSorting : true,
     showFiltering : true,
     rangeFiltering : true,
-    hideShowFiltering : true
+    hideShowFiltering : true,
+    rowSelection : true
   }
 
   columnResize : boolean = true;
