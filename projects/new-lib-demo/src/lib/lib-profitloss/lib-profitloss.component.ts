@@ -44,7 +44,6 @@ export class LibProfitlossComponent implements OnInit {
   //fresize columns
   @Input() resizeColumn;
 
-
   @Output() notifyDataChange: EventEmitter<any> = new EventEmitter();
 
   //variable to dynamically bind years in template eg) y1,y2 etc..
@@ -91,19 +90,13 @@ export class LibProfitlossComponent implements OnInit {
 
   previousList;
 
+  //for excel data manipulation
   someData = [];
 
   selectedYear = [];
 
-  parentExcel = [];
-
-  childExcel = [];
-
+  // store exporting items
   exportingItems = [];
-
-  workItem1 = [];
-
-  workItem2 = [];
 
   updatedTotal;
 
@@ -117,6 +110,9 @@ export class LibProfitlossComponent implements OnInit {
 
   dataForExcelSheet = [];
 
+  @Input() priceRangeData = []
+
+  // data for price range filter
   priceRange = [
     {
       'min': 0,
@@ -266,7 +262,7 @@ export class LibProfitlossComponent implements OnInit {
 
   // checkbox selection handle
   exportSelect(chosenRow, completed: boolean) {
-   
+   console.log('Check',chosenRow);
     if (chosenRow['isParent']) {
      
       if (chosenRow.subitems !== undefined) {
@@ -289,11 +285,25 @@ export class LibProfitlossComponent implements OnInit {
     }
     else {
       chosenRow['checked'] = !chosenRow['checked'];
+      // this.selectParent(chosenRow['parentId']);
       chosenRow.hasOwnProperty('subitems') ? this.exportSelect(chosenRow['subitems'], completed) : '';
     }
 
     event.stopPropagation();
   }
+
+  // selectParent(id){
+  //   let flatForCheckbox = this.libService.getSeperation(this.tableItems);
+  //   console.log('parent selection', flatForCheckbox);
+  //   flatForCheckbox.map((listFlat)=>{
+  //     if(listFlat['id'] == id){
+  //       listFlat['checked'] = true;
+  //       this.selectParent(listFlat['parentId']);
+  //     }
+  
+
+  //   });
+  // }
 
   //export to excel
   exportData() {
@@ -302,15 +312,18 @@ export class LibProfitlossComponent implements OnInit {
     this.someData = [];
     this.dataForExcelSheet = [];
 
-    // push selected items for exporting
-    this.tableItems.map((itemData) => {
-      if (itemData['checked']) {
-        this.exportingItems.push(itemData);
-      }
-    });
-
+    if(this.filterJson.rowSelection){
+        // push selected items for exporting
+        this.tableItems.map((itemData) => {
+          if (itemData['checked']) {
+            this.exportingItems.push(itemData);
+          }
+        });
+    }
+    
     //service method to flatten json from nested json
-    this.flattenObject = this.libService.getSeperation(this.exportingItems);
+    this.flattenObject = this.filterJson.rowSelection ? this.libService.getSeperation(this.exportingItems, 0 , true, true) : this.libService.getSeperation(this.tableItems, 0 , true);
+   
    
    // constructing objects required for excel by extracting from original object
     this.flattenObject.map((yearList)=>{

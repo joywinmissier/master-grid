@@ -16,20 +16,24 @@ export class NewLibDemoService {
   constructor(private datePipe: DatePipe) { }
 
   // method to seperate subitems and make flat json
-  getSeperation(dumData, startIndex = 0){
+  getSeperation(dumData, startIndex = 0, forExcel = false, selectedExport = false){
     startIndex == 0 ? this.dummExcelDT = [] : '';
     dumData.map((data)=>{
      
-      if(data['checked']){
+      
+      if(data['checked'] && forExcel && selectedExport){
+        this.dummExcelDT.push(data);
+      }
+      else {
         this.dummExcelDT.push(data);
       }
       if(data.hasOwnProperty("subitems")){
-        data['subitems'].length > 0 ? this.getSeperation(data['subitems'], 1) : '';
+        data['subitems'].length > 0 ? this.getSeperation(data['subitems'], 1, forExcel) : '';
       }
     })
     this.dataForXSLX = [];
     this.dataForXSLX = JSON.parse(JSON.stringify(this.dummExcelDT));
-    this.removeGargabeKeyValue(this.dataForXSLX);
+    forExcel ? this.removeGargabeKeyValue(this.dataForXSLX) : '';
     return this.dataForXSLX;
   }
 

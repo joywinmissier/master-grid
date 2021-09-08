@@ -42,7 +42,7 @@ export class AppComponent {
     showFiltering : true,
     rangeFiltering : true,
     hideShowFiltering : true,
-    rowSelection : true
+    rowSelection : false
   }
 
   columnResize : boolean = true;
@@ -526,6 +526,29 @@ export class AppComponent {
       y10: 0,
       // 'expanded': false,
       subitems: []
+    }
+  ];
+
+  priceRange = [
+    {
+      'min': 20,
+      'max': 1000,
+      'range': '20 - 1000'
+    },
+    {
+      'min': 1001,
+      'max': 5000,
+      'range': '1001 - 5000'
+    },
+    {
+      'min': 5001,
+      'max': 10000,
+      'range': '5001 - 10000'
+    },
+    {
+      'min': 10001,
+      'max': 'unlimited',
+      'range': 'Above 10000'
     }
   ];
 

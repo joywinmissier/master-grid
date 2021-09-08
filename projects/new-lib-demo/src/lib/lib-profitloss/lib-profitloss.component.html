@@ -50,7 +50,7 @@
                         matTooltipPosition="above">
                         <button class="range-button" [disabled]="selectedValue == undefined"
                             [ngClass]="{'filtered-button' : buttonLoop.range == rangeSelection}" mat-stroked-button
-                            *ngFor="let buttonLoop of priceRange"
+                            *ngFor="let buttonLoop of priceRangeData"
                             (click)="priceFilter(buttonLoop.min,buttonLoop.max, buttonLoop.range)">{{buttonLoop.range}}</button>
                     </div>
     
