@@ -1,0 +1,1 @@
+{"version":3,"file":"resize.component.d.ts","sources":["resize.component.d.ts"],"names":[],"mappings":";AAAA;AACA;AACA;AACA;AACA;AACA;;;AACA","sourcesContent":["export declare class ResizeComponent {\r\n    width: number | null;\r\n    tempWidth: any;\r\n    className: any;\r\n    onResize(width: number): void;\r\n    getClassData(className: any): void;\r\n}\r\n"]}
