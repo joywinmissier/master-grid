@@ -1,7 +1,0 @@
-export declare class ResizeComponent {
-    width: number | null;
-    tempWidth: any;
-    className: any;
-    onResize(width: number): void;
-    getClassData(className: any): void;
-}

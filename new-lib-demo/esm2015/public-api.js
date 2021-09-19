@@ -1,9 +1,0 @@
-/*
- * Public API Surface of new-lib-demo
- */
-export * from './lib/new-lib-demo.service';
-export * from './lib/new-lib-demo.component';
-export * from './lib/new-lib-demo.module';
-export * from './lib/lib-profitloss/lib-profitloss.component';
-export * from './lib/directives/sort.directive';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL25ldy1saWItZGVtby9zcmMvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRztBQUVILGNBQWMsNEJBQTRCLENBQUM7QUFDM0MsY0FBYyw4QkFBOEIsQ0FBQztBQUM3QyxjQUFjLDJCQUEyQixDQUFDO0FBRTFDLGNBQWMsK0NBQStDLENBQUM7QUFDOUQsY0FBYyxpQ0FBaUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXHJcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBuZXctbGliLWRlbW9cclxuICovXHJcblxyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9uZXctbGliLWRlbW8uc2VydmljZSc7XHJcbmV4cG9ydCAqIGZyb20gJy4vbGliL25ldy1saWItZGVtby5jb21wb25lbnQnO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9uZXctbGliLWRlbW8ubW9kdWxlJztcclxuXHJcbmV4cG9ydCAqIGZyb20gJy4vbGliL2xpYi1wcm9maXRsb3NzL2xpYi1wcm9maXRsb3NzLmNvbXBvbmVudCc7XHJcbmV4cG9ydCAqIGZyb20gJy4vbGliL2RpcmVjdGl2ZXMvc29ydC5kaXJlY3RpdmUnO1xyXG4iXX0=

@@ -1,9 +1,0 @@
-import { PipeTransform } from '@angular/core';
-export declare class PricerangePipe implements PipeTransform {
-    private searchedItems;
-    private key;
-    private prop;
-    private childrenPropName;
-    transform(value: any, columnName: any, minValue: any, maxValue: any, deepSearch?: boolean): any;
-    searchRecursive(value: any): any[];
-}
