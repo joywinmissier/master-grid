@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { LibProfitlossComponent } from 'new-lib-demo';
-import { FilterConfiguration } from 'projects/new-lib-demo/src/lib/interface/plview.model';
+import { FilterConfiguration } from 'dist/new-lib-demo/lib/interface/plview.model';
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,10 +17,10 @@ export class AppComponent {
   stickColumn = true;
 
   //stick last column
-  stickLastColumn = false;
+  stickLastColumn = true;
 
   //show edit on table for column
-  canEdit = false;
+  canEdit = true;
 
   //fix table header on scroll
   headerFix = false;
@@ -36,8 +39,13 @@ export class AppComponent {
 
   filterJSON : FilterConfiguration = {
     showSorting : true,
-    showFiltering : true
+    showFiltering : true,
+    rangeFiltering : true,
+    hideShowFiltering : true,
+    rowSelection : false
   }
+
+  columnResize : boolean = true;
 
   oneTable = [
     {
@@ -56,7 +64,7 @@ export class AppComponent {
     },
     {
       name: 'Target State 1',
-      y1: '5020.00',
+      y1: '5021.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',
@@ -70,7 +78,7 @@ export class AppComponent {
     },
     {
       name: 'Target State 2',
-      y1: '5020.00',
+      y1: '5022.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',
@@ -84,7 +92,7 @@ export class AppComponent {
     },
     {
       name: 'Target State 3',
-      y1: '5020.00',
+      y1: '5023.00',
       y2: '10.00',
       y3: '220.00',
       y4: '2220.00',
@@ -114,84 +122,84 @@ export class AppComponent {
       total: 94060,
       // 'expanded': false,
       subitems: [
-        // {
-        //   name: 'Mainframe',
-        //   y1: '330.00',
-        //   y2: '320.00',
-        //   y3: '20.00',
-        //   y4: '123789.00',
-        //   y5: '230.00',
-        //   y6: '20.00',
-        //   y7: '10.00',
-        //   y8: '10.00',
-        //   y9: '20.00',
-        //   y10: '30.00',
-        //   total: 22572.2,
-        //   // 'expanded': false,
-        //   subitems: [
-        //     {
-        //       name: 'Hardware, Software and Data Center Facilities',
-        //       y1: '230.00',
-        //       y2: '120.00',
-        //       y3: '87654.00',
-        //       y4: '230.00',
-        //       y5: '110.00',
-        //       y6: '50.00',
-        //       y7: '9876.00',
-        //       y8: '20.00',
-        //       y9: '670.00',
-        //       y10: '0.00',
-        //       total: 22572.2
-        //       // 'expanded': false,
-        //     },
-        //     {
-        //       name: 'Labour and Operations',
-        //       y1: '54320.00',
-        //       y2: '54320.00',
-        //       y3: '2312.00',
-        //       y4: '10.00',
-        //       y5: '310.00',
-        //       y6: '2220.00',
-        //       y7: '10.00',
-        //       y8: '340.00',
-        //       y9: '20.00',
-        //       y10: '0.00',
-        //       total: 22572.2
-        //       // 'expanded': false,
-        //     },
-        //     {
-        //       name: 'Third Party',
-        //       y1: '230.00',
-        //       y2: '2320.00',
-        //       y3: '1230.00',
-        //       y4: '340.00',
-        //       y5: '210.00',
-        //       y6: '650.00',
-        //       y7: '20.00',
-        //       y8: '900.00',
-        //       y9: '10.00',
-        //       y10: '10.00',
-        //       total: 22572.2
-        //       // 'expanded': false,
-        //     }
-        //   ]
-        // },
-        // {
-        //   name: 'Midrange',
-        //   y1: '980.00',
-        //   y2: '870.00',
-        //   y3: '20.00',
-        //   y4: '30.00',
-        //   y5: '440.00',
-        //   y6: '30.00',
-        //   y7: '30.00',
-        //   y8: '20.00',
-        //   y9: '10.00',
-        //   y10: '10.00',
-        //   total: 22572.2,
-        //   // 'expanded': false,
-        //   subitems: []
-        // }
+        {
+          name: 'Mainframe',
+          y1: '330.00',
+          y2: '320.00',
+          y3: '20.00',
+          y4: '123789.00',
+          y5: '230.00',
+          y6: '20.00',
+          y7: '10.00',
+          y8: '10.00',
+          y9: '20.00',
+          y10: '30.00',
+          total: 22572.2,
+          // 'expanded': false,
+          subitems: [
+            {
+              name: 'Hardware, Software and Data Center Facilities',
+              y1: '230.00',
+              y2: '120.00',
+              y3: '87654.00',
+              y4: '230.00',
+              y5: '110.00',
+              y6: '50.00',
+              y7: '9876.00',
+              y8: '20.00',
+              y9: '670.00',
+              y10: '0.00',
+              total: 22572.2
+              // 'expanded': false,
+            },
+            {
+              name: 'Labour and Operations',
+              y1: '54320.00',
+              y2: '54320.00',
+              y3: '2312.00',
+              y4: '10.00',
+              y5: '310.00',
+              y6: '2220.00',
+              y7: '10.00',
+              y8: '340.00',
+              y9: '20.00',
+              y10: '0.00',
+              total: 22572.2
+              // 'expanded': false,
+            },
+            {
+              name: 'Third Party',
+              y1: '230.00',
+              y2: '2320.00',
+              y3: '1230.00',
+              y4: '340.00',
+              y5: '210.00',
+              y6: '650.00',
+              y7: '20.00',
+              y8: '900.00',
+              y9: '10.00',
+              y10: '10.00',
+              total: 22572.2
+              // 'expanded': false,
+            }
+          ]
+        },
+        {
+          name: 'Midrange',
+          y1: '980.00',
+          y2: '870.00',
+          y3: '20.00',
+          y4: '30.00',
+          y5: '440.00',
+          y6: '30.00',
+          y7: '30.00',
+          y8: '20.00',
+          y9: '10.00',
+          y10: '10.00',
+          total: 22572.2,
+          // 'expanded': false,
+          subitems: []
+        }
       ]
     },
     {
@@ -199,7 +207,7 @@ export class AppComponent {
       y1: '5020.00',
       y2: '10.00',
       y3: '220.00',
-      y4: '2220.00',
+      y4: '220.00',
       y5: '110.00',
       y6: '40.00',
       y7: '330.00',
@@ -214,7 +222,7 @@ export class AppComponent {
           y1: '10.00',
           y2: '10.00',
           y3: '20.00',
-          y4: '330.00',
+          y4: '3330.00',
           y5: '340.00',
           y6: '40.00',
           y7: '30.00',
@@ -229,7 +237,7 @@ export class AppComponent {
               y1: '10.00',
               y2: '20.00',
               y3: '340.00',
-              y4: '330.00',
+              y4: '1330.00',
               y5: '20.00',
               y6: '10.00',
               y7: '10.00',
@@ -281,8 +289,78 @@ export class AppComponent {
                   y8: '20.00',
                   y9: '0.00',
                   y10: '10.00',
-                  total: 22572.2
+                  total: 22572.2,
+                  subitems : [
+                    {
+                      name: 'Midrange',
+                      y1: '310.00',
+                      y2: '220.00',
+                      y3: '220.00',
+                      y4: '330.00',
+                      y5: '3210.00',
+                      y6: '20.00',
+                      y7: '10.00',
+                      y8: '20.00',
+                      y9: '1.00',
+                      y10: '22.00',
+                      total: 22572.2,
+                      // 'expanded': false,
+                      subitems: [
+                        {
+                          name: 'Midrange Third Party',
+                          y1: '310.00',
+                          y2: '220.00',
+                          y3: '220.00',
+                          y4: '330.00',
+                          y5: '3210.00',
+                          y6: '20.00',
+                          y7: '10.00',
+                          y8: '20.00',
+                          y9: '1.00',
+                          y10: '22.00',
+                          total: 22572.2,
+                          // 'expanded': false,
+                          subitems: [
+                            {
+                              name: 'Midrange Third Party Sub 1',
+                              y1: '310.00',
+                              y2: '220.00',
+                              y3: '220.00',
+                              y4: '330.00',
+                              y5: '3210.00',
+                              y6: '20.00',
+                              y7: '10.00',
+                              y8: '20.00',
+                              y9: '1.00',
+                              y10: '22.00',
+                              total: 22572.2,
+                              // 'expanded': false,
+                              subitems: [
+                                {
+                                  name: 'Midrange Third Party Sub 1 Sub',
+                                  y1: '310.00',
+                                  y2: '220.00',
+                                  y3: '220.00',
+                                  y4: '330.00',
+                                  y5: '3210.00',
+                                  y6: '20.00',
+                                  y7: '10.00',
+                                  y8: '20.00',
+                                  y9: '1.00',
+                                  y10: '22.00',
+                                  total: 22572.2,
+                                  // 'expanded': false,
+                                  subitems: []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                   // 'expanded': false,
+
                 },
                 {
                   name: 'Third Party 3',
@@ -451,11 +529,38 @@ export class AppComponent {
     }
   ];
 
+  priceRange = [
+    {
+      'min': 20,
+      'max': 1000,
+      'range': '20 - 1000'
+    },
+    {
+      'min': 1001,
+      'max': 5000,
+      'range': '1001 - 5000'
+    },
+    {
+      'min': 5001,
+      'max': 10000,
+      'range': '5001 - 10000'
+    },
+    {
+      'min': 10001,
+      'max': 'unlimited',
+      'range': 'Above 10000'
+    }
+  ];
+
   constructor(){
    
   //poping last data from array as net savings
    this.lastItem.push(this.data1.pop());
 
+  }
+
+  getEditedData(event){
+    console.log('Edited Data',event);
   }
 
 }

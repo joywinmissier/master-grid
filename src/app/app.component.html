@@ -16,6 +16,9 @@
     [editFields]="canEdit" 
     [stickHeader]="headerFix"
     [filterJson] ="filterJSON"
+    [resizeColumn] = "columnResize"
+    [priceRangeData] = "priceRange"
+    (notifyDataChange)="getEditedData($event)"
     >
 </lib-lib-profitloss>
 </div>
