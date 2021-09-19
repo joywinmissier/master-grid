@@ -1,0 +1,1 @@
+{"version":3,"file":"new-lib-demo.module.d.ts","sources":["new-lib-demo.module.d.ts"],"names":[],"mappings":";;;;;;;;;;AAAA;;;;AACA","sourcesContent":["export declare class NewLibDemoModule {\r\n}\r\n"]}
