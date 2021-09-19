@@ -1,8 +1,0 @@
-import { ElementRef, EventEmitter } from "@angular/core";
-export declare class ResizableDirective {
-    private readonly elementRef;
-    private _document?;
-    expansionDetails: EventEmitter<any>;
-    readonly resize: import("rxjs").Observable<number>;
-    constructor(documentRef: any, elementRef: ElementRef<HTMLElement>);
-}
